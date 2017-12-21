@@ -42,7 +42,7 @@ if __name__ == "__main__":
   os.environ["CUDA_VISIBLE_DEVICES"] = FLAGS.gpuId
   insDataPro = DataPro(FLAGS)
   # For DNN
-  insDataPro.loadDataInL1000()
+  #insDataPro.loadDataInL1000()
   #print insDataPro.drugSampleId.shape
   #print insDataPro.drugData.shape
   #print insDataPro.tpSampleId.shape
@@ -50,19 +50,19 @@ if __name__ == "__main__":
   #print insDataPro.dnaIdNew.shape
   #print insDataPro.yLabel.shape
   #print insDataPro.realNegativeTpData.shape
-  insDataPro.loadOneCLData()
-  insDataPro.transferLabel2TwoCol()
-  numOfNeurons = [1956, 200, 10, 2]
-  insDNNModel = BaseDNNModel(FLAGS, numOfNeurons)
-  insDNNModel.buildBaseDNNModelGraph()
-  insModelTrainer = ModelTrainer(FLAGS, insDataPro, insDNNModel)
-  modelSavePath = insModelTrainer.trainDNN()
-  insGenerateEggs = GenerateEggs(FLAGS, insDataPro, modelSavePath)
-  insGenerateEggs.generateEggs2Files()
+  #insDataPro.loadOneCLData()
+  #insDataPro.transferLabel2TwoCol()
+  #numOfNeurons = [1956, 200, 10, 2]
+  #insDNNModel = BaseDNNModel(FLAGS, numOfNeurons)
+  #insDNNModel.buildBaseDNNModelGraph()
+  #insModelTrainer = ModelTrainer(FLAGS, insDataPro, insDNNModel)
+  #modelSavePath = insModelTrainer.trainDNN()
+  #insGenerateEggs = GenerateEggs(FLAGS, insDataPro, modelSavePath)
+  #insGenerateEggs.generateEggs2Files()
 
   # For CNN
-  #insDataPro.loadEnsembleDataAndLabel(FLAGS.ensembleDataPath)
-  #print insDataPro.positiveData.shape, insDataPro.negativeData.shape, insDataPro.allTrainData.shape
-  #print insDataPro.allTrainLabel.shape
-  #insCNNModel = BaseCNNModel(FLAGS, insDataPro)
-  #insCNNModel.buildBaseCNNModelGraph()
+  insDataPro.loadEnsembleDataAndLabel(FLAGS.ensembleDataPath)
+  print insDataPro.positiveData.shape, insDataPro.negativeData.shape, insDataPro.allTrainData.shape
+  print insDataPro.allTrainLabel.shape
+  insCNNModel = BaseCNNModel(FLAGS, insDataPro)
+  insCNNModel.buildBaseCNNModelGraph()
