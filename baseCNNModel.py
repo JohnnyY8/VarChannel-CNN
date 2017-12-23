@@ -18,8 +18,16 @@ class BaseCNNModel(CommonModelFunc):
       self.keepProb = tf.placeholder(tf.float32, name = "keepProb")
       self.init = tf.global_variables_initializer()
   
-      self.xData = tf.placeholder(tf.float32, [self.FLAGS.batchSize, 1956, self.FLAGS.maxInputChannels], name = "xData")
-      self.xInput = tf.reshape(self.xData, [-1, self.FLAGS.batchSize, 1956, self.FLAGS.maxInputChannels])
+      self.xData = tf.placeholder(tf.float32, 
+                                  [self.FLAGS.batchSize, 
+                                      1956, self.FLAGS.maxInputChannels],
+                                  name = "xData")
+
+      self.xInput = tf.reshape(self.xData, 
+                               [-1, self.FLAGS.batchSize, 
+                                   1956, self.FLAGS.maxInputChannels],
+                               name = "xInput")
+
       self.yLabel = tf.placeholder(tf.float32, [1, 2], name = "yLabel")
 
       with tf.variable_scope("conv1Layer"):
