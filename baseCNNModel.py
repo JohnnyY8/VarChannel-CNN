@@ -20,12 +20,12 @@ class BaseCNNModel(CommonModelFunc):
   
       self.xData = tf.placeholder(tf.float32, 
                                   [self.FLAGS.batchSize, 
-                                      1956, self.FLAGS.maxInputChannels],
+                                   1956, self.FLAGS.maxInputChannels],
                                   name = "xData")
 
       self.xInput = tf.reshape(self.xData, 
                                [-1, self.FLAGS.batchSize, 
-                                   1956, self.FLAGS.maxInputChannels],
+                                1956, self.FLAGS.maxInputChannels],
                                name = "xInput")
 
       self.yLabel = tf.placeholder(tf.float32, [1, 2], name = "yLabel")
@@ -37,9 +37,17 @@ class BaseCNNModel(CommonModelFunc):
         conv1SWidth = self.FLAGS.conv1SWidth
         num4InputChannels = self.FLAGS.maxInputChannels
         num4OutputChannels = self.FLAGS.num4OutputChannels
-        wConv1 = self.init_weight_variable("wConv1", [conv1KHeight, conv1KWidth, num4InputChannels, num4OutputChannels])
+        wConv1 = self.init_weight_variable("wConv1", 
+                                           [conv1KHeight, 
+                                            conv1KWidth, 
+                                            num4InputChannels, 
+                                            num4OutputChannels])
         bConv1 = self.init_bias_variable("bConv1", [num4OutputChannels])
-        hConv1 = tf.nn.relu(self.conv2d(self.xInput, wConv1, conv1SHeight, conv1SWidth, num4InputChannels) + bConv1)
+        hConv1 = tf.nn.relu(self.conv2d(self.xInput, 
+                                        wConv1, 
+                                        conv1SHeight, 
+                                        conv1SWidth, 
+                                        num4InputChannels) + bConv1)
 
       with tf.variable_scope("roiPoolingLayer"):
         shape4hConv1 = hConv1.get_shape().as_list()
@@ -50,7 +58,11 @@ class BaseCNNModel(CommonModelFunc):
         pool1KWidth = math.ceil(shape4hConv1[1] / num4EachFM)
         pool1SHeight = 1
         pool1SWidth = math.ceil(shape4hConv1[1] / num4EachFM)
-        hROIPooling = self.avg_pool(hConv1, pool1KHeight, pool1KWidth, pool1SHeight, pool1SWidth)  # 平均池化 拼接
+        hROIPooling = self.avg_pool(hConv1, 
+                                    pool1KHeight, 
+                                    pool1KWidth, 
+                                    pool1SHeight, 
+                                    pool1SWidth)  # 平均池化 拼接
 
       ## 这里考虑一下是否还需要加fc
       #with tf.variable_scope("softmaxLayer"):
