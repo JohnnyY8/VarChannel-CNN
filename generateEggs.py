@@ -21,7 +21,10 @@ class GenerateEggs():
       yOutput = graph.get_operation_by_name("outputLayer/hOutput").outputs[0]
       keepProb = graph.get_operation_by_name("keepProb").outputs[0]
       for i in xrange(0, self.insDataPro.allUnlabeledData.shape[0], self.FLAGS.batchSize):
-        feedData = {xData: self.insDataPro.allUnlabeledData[i: i + self.FLAGS.batchSize], yLabel: np.zeros((self.FLAGS.batchSize, 2)), keepProb: 1.0}
+        feedData = {
+            xData: self.insDataPro.allUnlabeledData[i: i + self.FLAGS.batchSize],
+            yLabel: np.zeros((self.FLAGS.batchSize, 2)),
+            keepProb: 1.0}
         probTemp = sess.run(yOutput, feed_dict = feedData)
         if i == 0:
           probRes = probTemp
@@ -33,7 +36,7 @@ class GenerateEggs():
       #print sum(probRes[0])
       #print sum(probRes[1])
       #print sum(probRes[2])
-    
+
     with open(os.path.join(self.FLAGS.path4SaveEggsFile, "eggsfile.txt"), 'w') as filePointer:
       # Write drug names
       flag = 0
