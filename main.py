@@ -12,15 +12,50 @@ from modelTrainer import *
 from generateEggs import *
 
 flags = tf.app.flags
-flags.DEFINE_string("gpuId", "0", "Which gpu is assigned.")
-flags.DEFINE_string("fileRootPath", "/home/xlw/second", "File path for all files.")
-flags.DEFINE_string("dataRootPath", "/home/xlw/second", "Data file path for all data.")
-flags.DEFINE_string("path4SaveModel", "/home/xlw/second/DNN-eggs/trainedModel", "The path for saving model.")
-flags.DEFINE_string("path4SaveEggsFile", "/home/xlw/second/DNN-eggs/eggfile/", "The path for saving eggs file.")
-flags.DEFINE_string("savePath", "/home/xlw/second/CNN_ensemble/1_fold/", "The path for saving loss and accuracy.")
-flags.DEFINE_string("ensembleDataPath", "/home/xlw/second/CNN_ensemble/4training_ensemble/", "The path for enmsemble data.")
-flags.DEFINE_string("oneCLDataPath4Training", "/home/xlw/second/DNN-eggs/4_training/PC3", "The path for training in one cell line.")
-flags.DEFINE_string("oneCLDataPath4GenerateEggs", "/home/xlw/second/DNN-eggs/after_merge/PC3", "The path for generating eggs in one cell line.")
+
+flags.DEFINE_string(
+    "gpuId",
+    "0",
+    "Which gpu is assigned.")
+
+flags.DEFINE_string(
+    "fileRootPath",
+    "/home/xlw/second",
+    "File path for all files.")
+
+flags.DEFINE_string(
+    "dataRootPath",
+    "/home/xlw/second",
+    "Data file path for all data.")
+
+flags.DEFINE_string(
+    "path4SaveModel",
+    "/home/xlw/second/DNN-eggs/trainedModel",
+    "The path for saving model.")
+
+flags.DEFINE_string(
+    "path4SaveEggsFile",
+    "/home/xlw/second/DNN-eggs/eggfile/",
+    "The path for saving eggs file.")
+
+flags.DEFINE_string(
+    "savePath",
+    "/home/xlw/second/CNN_ensemble/1_fold/",
+    "The path for saving loss and accuracy.")
+flags.DEFINE_string(
+    "ensembleDataPath",
+    "/home/xlw/second/CNN_ensemble/4training_ensemble/",
+    "The path for enmsemble data.")
+
+flags.DEFINE_string(
+    "oneCLDataPath4Training",
+    "/home/xlw/second/DNN-eggs/4_training/PC3",
+    "The path for training in one cell line.")
+
+flags.DEFINE_string(
+    "oneCLDataPath4GenerateEggs",
+    "/home/xlw/second/DNN-eggs/after_merge/PC3",
+    "The path for generating eggs in one cell line.")
 
 flags.DEFINE_float("testSize", 0.1, "The threshold for validation data.")
 flags.DEFINE_float("dropOutRate", 0.5, "The threshold for validation data.")
