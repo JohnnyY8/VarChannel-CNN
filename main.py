@@ -57,11 +57,30 @@ flags.DEFINE_string(
     "/home/xlw/second/DNN-eggs/after_merge/PC3",
     "The path for generating eggs in one cell line.")
 
-flags.DEFINE_float("testSize", 0.1, "The threshold for validation data.")
-flags.DEFINE_float("dropOutRate", 0.5, "The threshold for validation data.")
-flags.DEFINE_float("learningRate", 0.0001, "The learning rate for training.")
-flags.DEFINE_float("threshold4Val", 0.5, "The threshold for validation data.")
-flags.DEFINE_float("threshold4Convegence", 1e-40, "The threshold for training convegence.")
+flags.DEFINE_float(
+    "testSize",
+    0.1,
+    "The threshold for validation data.")
+
+flags.DEFINE_float(
+    "dropOutRate",
+    0.5,
+    "The threshold for validation data.")
+
+flags.DEFINE_float(
+    "learningRate",
+    0.0001,
+    "The learning rate for training.")
+
+flags.DEFINE_float(
+    "threshold4Val",
+    0.5,
+    "The threshold for validation data.")
+
+flags.DEFINE_float(
+    "threshold4Convegence",
+    1e-40,
+    "The threshold for training convegence.")
 
 flags.DEFINE_integer("num4FC", 10, "The number of neurons in FC layer.")
 flags.DEFINE_integer("conv1KWidth", 10, "The width of convolutional kernel.")
