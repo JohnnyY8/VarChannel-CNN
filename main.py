@@ -82,11 +82,31 @@ flags.DEFINE_float(
     1e-40,
     "The threshold for training convegence.")
 
-flags.DEFINE_integer("num4FC", 10, "The number of neurons in FC layer.")
-flags.DEFINE_integer("conv1KWidth", 10, "The width of convolutional kernel.")
-flags.DEFINE_integer("conv1SWidth", 1, "The width of convolutional kernel stride.")
-flags.DEFINE_integer("maxInputChannels", 7, "The maximum number of input channels.")
-flags.DEFINE_integer("batchSize", 150, "How many samples are trained in each iteration.")
+flags.DEFINE_integer(
+    "num4FC",
+    10,
+    "The number of neurons in FC layer.")
+
+flags.DEFINE_integer(
+    "conv1KWidth",
+    10,
+    "The width of convolutional kernel.")
+
+flags.DEFINE_integer(
+    "conv1SWidth",
+    1,
+    "The width of convolutional kernel stride.")
+
+flags.DEFINE_integer(
+    "maxInputChannels",
+    7,
+    "The maximum number of input channels.")
+
+flags.DEFINE_integer(
+    "batchSize",
+    150,
+    "How many samples are trained in each iteration.")
+
 flags.DEFINE_integer("trainEpoches", 1000, "How many times training through all train data.")
 flags.DEFINE_integer("nWeight", 10, "The weighted for negative samples in objective funcion.")
 flags.DEFINE_integer("num4OutputChannels", 10, "The number of output channels in first convolutional layer.")
