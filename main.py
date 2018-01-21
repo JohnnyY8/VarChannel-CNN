@@ -107,9 +107,21 @@ flags.DEFINE_integer(
     150,
     "How many samples are trained in each iteration.")
 
-flags.DEFINE_integer("trainEpoches", 1000, "How many times training through all train data.")
-flags.DEFINE_integer("nWeight", 10, "The weighted for negative samples in objective funcion.")
-flags.DEFINE_integer("num4OutputChannels", 10, "The number of output channels in first convolutional layer.")
+flags.DEFINE_integer(
+    "trainEpoches",
+    1000,
+    "How many times training through all train data.")
+
+flags.DEFINE_integer(
+    "nWeight",
+    10,
+    "The weighted for negative samples in objective funcion.")
+
+flags.DEFINE_integer(
+    "num4OutputChannels",
+    10,
+    "The number of output channels in first convolutional layer.")
+
 FLAGS = flags.FLAGS
 
 if __name__ == "__main__":
