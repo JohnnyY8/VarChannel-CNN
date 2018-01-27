@@ -23,7 +23,6 @@ class ModelTrainer:
     with tf.Session() as sess:
       oldTrainAccu, newTrainAccu, bestValAccu = 0.0, 0.0, 0.0
       flag = num4Epoches = 0
-      #saver = tf.train.Saver(max_to_keep = self.FLAGS.baggingTime)
       saver = tf.train.Saver()
       init = tf.global_variables_initializer()
       sess.run(init)
