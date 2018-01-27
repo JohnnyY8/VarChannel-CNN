@@ -31,8 +31,18 @@ class ModelTrainer:
         random.shuffle(trainIndex)
         print "No.%d epoch is starting..." % (num4Epoches)
         for ind in xrange(0, self.xTrain.shape[0], self.FLAGS.batchSize):
-          batchXs, batchYs = self.xTrain[trainIndex[ind: ind + self.FLAGS.batchSize]], self.yTrain[trainIndex[ind: ind + self.FLAGS.batchSize]]
-          newTrainLoss, newTrainAccu, tempTS = sess.run([self.insModel.loss, self.insModel.accuracy, self.insModel.trainStep], feed_dict = {self.insModel.xData: batchXs, self.insModel.yLabel: batchYs, self.insModel.keepProb: self.FLAGS.dropOutRate})
+          batchXs, batchYs = self.xTrain[trainIndex[ind: ind + self.FLAGS.batchSize]], \
+              self.yTrain[trainIndex[ind: ind + self.FLAGS.batchSize]]
+
+          newTrainLoss, newTrainAccu, tempTS = sess.run(
+              [self.insModel.loss,
+               self.insModel.accuracy,
+               self.insModel.trainStep],
+              feed_dict = {
+                  self.insModel.xData: batchXs,
+                  self.insModel.yLabel: batchYs,
+                  self.insModel.keepProb: self.FLAGS.dropOutRate})
+
           self.insResultStorer.addLoss(newTrainLoss)
           self.insResultStorer.addTrainAccu(newTrainAccu)
           print "  The loss is %.6f. The training accuracy is %.6f..." % (newTrainLoss, newTrainAccu)
@@ -42,7 +52,14 @@ class ModelTrainer:
             if abs(newTrainAccu - oldTrainAccu) <= self.FLAGS.threshold4Convegence:
               flag = 2
           oldTrainAccu = newTrainAccu
-        newValAccu = sess.run(self.insModel.accuracy, feed_dict = {self.insModel.xData: self.xTest, self.insModel.yLabel: self.yTest, self.insModel.keepProb: 1.0})
+
+        newValAccu = sess.run(
+            self.insModel.accuracy,
+            feed_dict = {
+                self.insModel.xData: self.xTest,
+                self.insModel.yLabel: self.yTest,
+                self.insModel.keepProb: 1.0})
+
         self.insResultStorer.addValAccu(newValAccu)
         print "    The validation accuracy is %.6f..." % (newValAccu)
         if newValAccu > bestValAccu:
