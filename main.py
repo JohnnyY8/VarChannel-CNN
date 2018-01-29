@@ -20,41 +20,42 @@ flags.DEFINE_string(
 
 flags.DEFINE_string(
     "fileRootPath",
-    "/home/xlw/second",
+    "./files",
     "File path for all files.")
 
 flags.DEFINE_string(
     "dataRootPath",
-    "/home/xlw/second",
+    "./files",
     "Data file path for all data.")
 
 flags.DEFINE_string(
     "path4SaveModel",
-    "/home/xlw/second/DNN-eggs/trainedModel",
+    "./files/trainedModel",
     "The path for saving model.")
 
 flags.DEFINE_string(
     "path4SaveEggsFile",
-    "/home/xlw/second/DNN-eggs/eggfile/",
+    "./files/eggfile/",
     "The path for saving eggs file.")
 
 flags.DEFINE_string(
     "savePath",
-    "/home/xlw/second/CNN_ensemble/1_fold/",
+    "./files/1_fold/",
     "The path for saving loss and accuracy.")
+
 flags.DEFINE_string(
     "ensembleDataPath",
-    "/home/xlw/second/CNN_ensemble/4training_ensemble/",
+    "./files/4training_ensemble/",
     "The path for enmsemble data.")
 
 flags.DEFINE_string(
     "oneCLDataPath4Training",
-    "/home/xlw/second/DNN-eggs/4_training/PC3",
+    "./files/4_training/PC3",
     "The path for training in one cell line.")
 
 flags.DEFINE_string(
     "oneCLDataPath4GenerateEggs",
-    "/home/xlw/second/DNN-eggs/after_merge/PC3",
+    "./files/after_merge/PC3",
     "The path for generating eggs in one cell line.")
 
 flags.DEFINE_float(
