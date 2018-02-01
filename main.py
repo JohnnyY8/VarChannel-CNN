@@ -128,6 +128,7 @@ FLAGS = flags.FLAGS
 if __name__ == "__main__":
   os.environ["CUDA_VISIBLE_DEVICES"] = FLAGS.gpuId
   insDataPro = DataPro(FLAGS)
+
   # For DNN
   #insDataPro.loadDataInL1000()
   #print insDataPro.drugSampleId.shape
