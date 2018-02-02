@@ -69,7 +69,7 @@ class BaseCNNModel(CommonModelFunc):
             pool1KHeight,
             pool1KWidth,
             pool1SHeight,
-            pool1SWidth)  # 平均池化 拼接
+            pool1SWidth)  #TODO 平均池化 拼接
 
       ## 这里考虑一下是否还需要加fc
       #with tf.variable_scope("softmaxLayer"):
