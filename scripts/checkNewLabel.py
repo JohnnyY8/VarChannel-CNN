@@ -8,27 +8,35 @@ path4Prediction = "/home/xlw/Git-Repo/VarChannel-CNN/files/newMap4UnlabeledData/
 for cl in cls:
   print cl, "......"
   clPath = os.path.join(basePath, cl)
-  drugName = np.load(os.path.join(clPath, "drug_name.npy"))
-  tpName = np.load(os.path.join(clPath, "tp_name.npy"))
+  drugNames = np.load(os.path.join(clPath, "drug_name.npy"))
+  tpNames = np.load(os.path.join(clPath, "tp_name.npy"))
   #newLabel = np.load(os.path.join(clPath, "new_label.npy"))
 
   with open(os.path.join(path4Prediction, cl + "_forpredict.txt")) as file_p:
     file_lines = file_p.readlines()
-    print file_lines
-    raw_input("...")
-    print "drugName.shape:", drugName.shape
-    print "tpName.shape:", tpName.shape
-    flag = 0
-    for ind, file_line in enumerate(file_lines):
-      if flag == 0:
-        flag = 1
-        continue
-      file_line = file_line[: -1].split("\t")
-      print "len(file_line):", len(file_line)
-      if file_line[0] != tpName[ind - 1]:
-        print "Error...name"
-        break
-      for jnd, ele in enumerate(file_line[1: ]):
-        if float(ele) != newLabel[ind - 1][jnd]:
-          print "Error..."
-          break
+    newDrugNames = file_lines[0][: -2].split('\t')
+    #print newDrugName
+    newTpNames = [file_line.split('\t')[0] for file_line in file_lines[1: ]]
+    #print newTpNames
+    print "drugName.shape:", drugNames.shape
+    print "tpName.shape:", tpNames.shape
+    print len(newDrugNames)
+    print len(newTpNames)
+
+    print "DRUG..."
+    count = 0
+    for drugName in drugNames:
+      if drugName in newDrugNames:
+        count += 1
+      else:
+        print "Wrong..."
+    print count
+
+    print "TP..."
+    count = 0
+    for tpName in tpNames:
+      if tpName in newTpNames:
+        count += 1
+      else:
+        print "Wrong..."
+    print count
