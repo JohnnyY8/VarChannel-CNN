@@ -1,4 +1,4 @@
 files/
-scripts/
+#scripts/
 *.txt
 *.pyc
