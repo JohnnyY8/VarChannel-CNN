@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 cls = ["VCAP", "HCC515", "A375", "A549", "HA1E", "PC3", "HEPG2"]
 
 dataPath = "../files/4training/"
-savePath = "../4training_ensemble/"
+savePath = "../files/4training_ensemble/"
 
 def ind2Arr(index):
   return np.array(index)
@@ -18,12 +18,15 @@ def putTogether(oldData, oldNamePairs, newData, newNamePairs):
     index = np.where(oldNamePairs == namePair)
     if index[0].shape[0] == 0:
       print "Not found..."
+      print newData[ind2Arr([0])]
+      raw_input("...")
+      print newData[ind2Arr([0])].reshape(-1, 1)
+      raw_input("...")
+      #print resData
+      #raw_input("...")
       resData.append(newData[ind2Arr([0])].reshape(-1, 1).tolist())
     else:
       print "Found..."
-      #print "oldData.shape, oldNamePairs.shape:", oldData.shape, oldNamePairs.shape
-      #print "index:", index
-      #raw_input("....")
       tempData = np.array(np.array(oldData[index]).tolist())
       if tempData.size == 1956:
         print "  The size is 1956..."
