@@ -7,6 +7,17 @@ cls = ["VCAP", "HCC515", "A375", "A549", "HA1E", "PC3", "HEPG2"]
 
 dataPath = "../files/4training/"
 savePath = "../files/4training_ensemble/"
+path4Prediction = "../files/newMap4UnlabeledData"
+
+def filterDataAndNamePair(data, namePair, keepList):
+  resData, resNamePair = [], []
+  for ind, ele in enumerate(namePair):
+    print ind, "..."
+    if ele in keepList:
+      resData.append(data[ind])
+      resNamePair.append(ele)
+      
+  return np.array(resData), np.array(resNamePair)
 
 def ind2Arr(index):
   return np.array(index)
@@ -22,8 +33,6 @@ def putTogether(oldData, oldNamePairs, newData, newNamePairs):
       raw_input("...")
       print newData[ind2Arr([0])].reshape(-1, 1)
       raw_input("...")
-      #print resData
-      #raw_input("...")
       resData.append(newData[ind2Arr([0])].reshape(-1, 1).tolist())
     else:
       print "Found..."
@@ -85,6 +94,8 @@ if __name__ == "__main__":
         print "positiveNamePair is done..."
 
       elif pnu == 2:
+        keepList = np.load(os.path.join(path4Prediction, "unlabeledNamePairOneCol4Prediction_" + cl + ".npy"))
+
         clUDPath = os.path.join(dataPath, cl, "unlabeledData.npy")
         unlabeledData = np.load(clUDPath)
         print "unlabeledData is done..."
@@ -92,6 +103,11 @@ if __name__ == "__main__":
         clUNPath = os.path.join(dataPath, cl, "unlabeledNamePairOneCol.npy")
         unlabeledNamePair = np.load(clUNPath)
         print "unlabeledNamePair is done..."
+
+        print "The shape of unlabeled data:", unlabeledData.shape
+        unlabeledData, unlabeledNamePair = filterDataAndNamePair(unlabeledData, unlabeledNamePair, keepList)
+        print unlabeledData.shape, unlabeledNamePair.shape
+        raw_input("....")
    
       flag += 1
 
@@ -121,6 +137,8 @@ if __name__ == "__main__":
         print "Put positive data and name pairs together is done..."
 
       elif pnu == 2:
+        keepList = np.load(os.path.join(path4Prediction, "unlabeledNamePairOneCol4Prediction_" + cl + ".npy"))
+
         clUDPath = os.path.join(dataPath, cl, "unlabeledData.npy")
         newUnlabeledData = np.load(clUDPath)
         print "unlabeledData is done..."

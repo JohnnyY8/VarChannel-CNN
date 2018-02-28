@@ -2,7 +2,7 @@ import os
 import numpy as np
 import tensorflow as tf
 
-import resultStorer
+#import resultStorer
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
@@ -54,6 +54,13 @@ class ModelTest:
       #  res = sess.run(self.h_hidden)
       #  print res 
 
+def fuc():
+  a = np.array([1, 2, 3, 4, 5])
+  for ind, ele in enumerate(a):
+    print ele
+    if ele == 4:
+      a = np.delete(a, ind, axis = 0)
+    print a
 
 if __name__ == "__main__":
   #x = tf.constant([[0., 1., 2., 3.], [4., 5., 6., 7.]])
@@ -75,6 +82,9 @@ if __name__ == "__main__":
     #  w_hidden2 = tf.get_variable("w_hidden1")
     #  print sess.run(tf.get_variable("w_hidden1"))
     #  print sess.run(w_hidden2)
+  fuc()
+  raw_input("..")
+
   a = input("...")
   print type(a)
   
