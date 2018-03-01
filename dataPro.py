@@ -21,6 +21,7 @@ class DataPro:
     self.mergeSameDrugMapFilePath = os.path.join(FLAGS.fileRootPath, "trt_cp.info")
     self.L1000GeneIdFilePath = os.path.join(FLAGS.fileRootPath, "Gene_ID.txt")
     self.L1000MapFilePath = os.path.join(FLAGS.fileRootPath, "GPL96.annot")
+    self.ensembleDataPath = FLAGS.ensembleDataPath
 
   # Get drug sample id and drug data
   def getDrugSampleIdAndDrugData(self):
@@ -181,9 +182,9 @@ class DataPro:
     return distance[:, [1]]
 
   # Load ensemble data
-  def loadEnsembleDataAndLabel(self, ensembleDataPath):
-    self.positiveData = np.load(os.path.join(ensembleDataPath, "positiveDataAppendZeros.npy"))
-    self.negativeData = np.load(os.path.join(ensembleDataPath, "negativeDataAppendZeros.npy"))
+  def loadEnsembleDataAndLabel(self):
+    self.positiveData = np.load(os.path.join(self.ensembleDataPath, "positiveDataAppendZeros.npy"))
+    self.negativeData = np.load(os.path.join(self.ensembleDataPath, "negativeDataAppendZeros.npy"))
     self.allTrainData = np.vstack((self.positiveData, self.negativeData))
     self.buildEnsembleLabel()
     print "Load ensemble data and label is done..."

@@ -12,11 +12,9 @@ path4Prediction = "../files/newMap4UnlabeledData"
 def filterDataAndNamePair(data, namePair, keepList):
   resData, resNamePair = [], []
   for ind, ele in enumerate(namePair):
-    print ind, "..."
     if ele in keepList:
       resData.append(data[ind])
       resNamePair.append(ele)
-      
   return np.array(resData), np.array(resNamePair)
 
 def ind2Arr(index):
@@ -29,10 +27,6 @@ def putTogether(oldData, oldNamePairs, newData, newNamePairs):
     index = np.where(oldNamePairs == namePair)
     if index[0].shape[0] == 0:
       print "Not found..."
-      print newData[ind2Arr([0])]
-      raw_input("...")
-      print newData[ind2Arr([0])].reshape(-1, 1)
-      raw_input("...")
       resData.append(newData[ind2Arr([0])].reshape(-1, 1).tolist())
     else:
       print "Found..."
@@ -94,8 +88,6 @@ if __name__ == "__main__":
         print "positiveNamePair is done..."
 
       elif pnu == 2:
-        keepList = np.load(os.path.join(path4Prediction, "unlabeledNamePairOneCol4Prediction_" + cl + ".npy"))
-
         clUDPath = os.path.join(dataPath, cl, "unlabeledData.npy")
         unlabeledData = np.load(clUDPath)
         print "unlabeledData is done..."
@@ -104,10 +96,8 @@ if __name__ == "__main__":
         unlabeledNamePair = np.load(clUNPath)
         print "unlabeledNamePair is done..."
 
-        print "The shape of unlabeled data:", unlabeledData.shape
+        keepList = np.load(os.path.join(path4Prediction, "unlabeledNamePairOneCol4Prediction_" + cl + ".npy"))
         unlabeledData, unlabeledNamePair = filterDataAndNamePair(unlabeledData, unlabeledNamePair, keepList)
-        print unlabeledData.shape, unlabeledNamePair.shape
-        raw_input("....")
    
       flag += 1
 
@@ -146,6 +136,12 @@ if __name__ == "__main__":
         clUNPath = os.path.join(dataPath, cl, "unlabeledNamePairOneCol.npy")
         newUnlabeledNamePair = np.load(clUNPath)
         print "unlabeledNamePair is done..."
+
+        #print newUnlabeledData.shape, newUnlabeledNamePair.shape
+        keepList = np.load(os.path.join(path4Prediction, "unlabeledNamePairOneCol4Prediction_" + cl + ".npy"))
+        newUnlabeledData, newUnlabeledNamePair = filterDataAndNamePair(newUnlabeledData, newUnlabeledNamePair, keepList)
+        #print newUnlabeledData.shape, newUnlabeledNamePair.shape
+        #raw_input("....")
 
         unlabeledData, unlabeledNamePair = putTogether(unlabeledData, unlabeledNamePair, newUnlabeledData, newUnlabeledNamePair)
         print "Put unlabeled data and name pairs together is done..."

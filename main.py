@@ -6,7 +6,6 @@ import numpy as np
 import tensorflow as tf
 
 from dataPro import *
-from baseDNNModel import *
 from baseCNNModel import *
 from modelTrainer import *
 from generateEggs import *
@@ -149,8 +148,9 @@ if __name__ == "__main__":
   #insGenerateEggs.generateEggs2Files()
 
   # For CNN
-  insDataPro.loadEnsembleDataAndLabel(FLAGS.ensembleDataPath)
+  insDataPro.loadEnsembleDataAndLabel()
   print insDataPro.positiveData.shape, insDataPro.negativeData.shape, insDataPro.allTrainData.shape
   print insDataPro.allTrainLabel.shape
+  raw_input("...")
   insCNNModel = BaseCNNModel(FLAGS, insDataPro)
   insCNNModel.buildBaseCNNModelGraph()
