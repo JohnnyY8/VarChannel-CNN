@@ -1,10 +1,11 @@
 import os
 import numpy as np
 
-basePath = "/home/xlw/second/CNN_ensemble/4training_ensemble/"
+basePath = "../files/4training_ensemble/"
 
 positiveData = np.load(os.path.join(basePath, "positiveData.npy"))
 negativeData = np.load(os.path.join(basePath, "negativeData.npy"))
+unlabeledData = np.load(os.path.join(basePath, "unlabeledData.npy"))
 
 def appendZero(data, flag):
   res = []
@@ -23,9 +24,16 @@ def appendZero(data, flag):
   print "res.shape", res.shape
   if flag == 0:
     np.save(os.path.join(basePath, "positiveDataAppendZeros.npy"), res)
-  else:
+  elif flag == 1:
     np.save(os.path.join(basePath, "negativeDataAppendZeros.npy"), res)
+  elif flag == 2:
+    np.save(os.path.join(basePath, "unlabeledDataAppendZeros.npy"), res)
   
 if __name__ == "__main__":
-  appendZero(positiveData, 0)
-  appendZero(negativeData, 1)
+  #appendZero(positiveData, 0)
+  #appendZero(negativeData, 1)
+  #print unlabeledData.shape
+  #appendZero(unlabeledData, 2)
+  #print unlabeledData.shape
+  a = np.load(os.path.join(basePath, "unlabeledDataAppendZeros.npy"))
+  print a.shape
