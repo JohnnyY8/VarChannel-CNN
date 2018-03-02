@@ -83,7 +83,12 @@ flags.DEFINE_float(
     "The threshold for training convegence.")
 
 flags.DEFINE_integer(
-    "num4FC",
+    "num4FirstFC",
+    200,
+    "The number of neurons in FC layer.")
+
+flags.DEFINE_integer(
+    "num4SecondFC",
     10,
     "The number of neurons in FC layer.")
 
@@ -151,6 +156,5 @@ if __name__ == "__main__":
   insDataPro.loadEnsembleDataAndLabel()
   print insDataPro.positiveData.shape, insDataPro.negativeData.shape, insDataPro.allTrainData.shape
   print insDataPro.allTrainLabel.shape
-  raw_input("...")
   insCNNModel = BaseCNNModel(FLAGS, insDataPro)
   insCNNModel.buildBaseCNNModelGraph()
