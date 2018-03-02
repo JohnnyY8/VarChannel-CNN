@@ -68,11 +68,11 @@ class BaseCNNModel(CommonModelFunc):
       with tf.variable_scope("roiPoolingLayer"):
         num4FirstFC = self.FLAGS.num4FirstFC
         shape4hConv1 = hConv1.get_shape().as_list()
-        print shape4hConv1, "......"
-        print num4FirstFC
-        num4EachFM = num4FirstFC / num4OutputChannels
-        print "num4EachFM:", num4EachFM
-        raw_input("...")
+        #print shape4hConv1, "......"
+        #print num4FirstFC
+        num4EachFM = num4FirstFC / num4OutputChannels  # TODO 这个计算不对，除不尽的时候怎么破
+        #print "num4EachFM:", num4EachFM
+        #raw_input("...")
         pool1KHeight = 1
         pool1KWidth = math.ceil(shape4hConv1[1] / num4EachFM)
         pool1SHeight = 1
