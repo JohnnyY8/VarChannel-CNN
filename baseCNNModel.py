@@ -1,4 +1,5 @@
 #coding=utf-8
+
 import os
 import math
 import numpy as np
@@ -18,22 +19,24 @@ class BaseCNNModel(CommonModelFunc):
       self.keepProb = tf.placeholder(tf.float32, name = "keepProb")
       self.init = tf.global_variables_initializer()
 
-      self.xData = tf.placeholder(tf.float32,
-          [self.FLAGS.batchSize,
-           1956,
-           self.FLAGS.maxInputChannels],
-          name = "xData")
+      with tf.variable_scope("inputLayer"):
+        num4Features = self.FLAGS.num4Features
+        self.xData = tf.placeholder(tf.float32,
+            [self.FLAGS.batchSize,
+             num4Features,
+             self.FLAGS.maxInputChannels],
+            name = "xData")
 
-      self.xInput = tf.reshape(self.xData,
-          [-1,
-           self.FLAGS.batchSize,
-           1956,
-           self.FLAGS.maxInputChannels],
-          name = "xInput")
+        self.xInput = tf.reshape(self.xData,
+            [-1,
+             self.FLAGS.batchSize,
+             num4Features,
+             self.FLAGS.maxInputChannels],
+            name = "xInput")
 
-      self.yLabel = tf.placeholder(tf.float32,
-          [1, 2],
-          name = "yLabel")
+        self.yLabel = tf.placeholder(tf.float32,
+            [1, 2],
+            name = "yLabel")
 
       # First convolutional layer
       with tf.variable_scope("conv1Layer"):

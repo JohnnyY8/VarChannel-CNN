@@ -83,14 +83,19 @@ flags.DEFINE_float(
     "The threshold for training convegence.")
 
 flags.DEFINE_integer(
+    "num4Features",
+    1956,
+    "The number of original features.")
+
+flags.DEFINE_integer(
     "num4FirstFC",
     200,
-    "The number of neurons in FC layer.")
+    "The number of neurons in first fully connected layer.")
 
 flags.DEFINE_integer(
     "num4SecondFC",
     10,
-    "The number of neurons in FC layer.")
+    "The number of neurons in second fully connected layer.")
 
 flags.DEFINE_integer(
     "conv1KWidth",
