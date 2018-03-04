@@ -122,7 +122,7 @@ class BaseCNNModel(CommonModelFunc):
         name4PreAct, name4Act = "preActFC1", "hFC1"
 
         wFC1 = self.init_weight_variable(name4Weight,
-            [shape4ROIPooling4FCInput[1],
+            [shape4hROIPooling4FCInput[1],
              num4FirstFC])
         self.variable_summaries(wFC1)
 
