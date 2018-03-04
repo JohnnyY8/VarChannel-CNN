@@ -64,29 +64,59 @@ class BaseCNNModel(CommonModelFunc):
                 num4InputChannels) + bConv1,
             name = "hConv1")
 
-      # ROI polling layer
+      # ROI pooling layer
       with tf.variable_scope("roiPoolingLayer"):
-        num4FirstFC = self.FLAGS.num4FirstFC
         shape4hConv1 = hConv1.get_shape().as_list()
-        #print shape4hConv1, "......"
-        #print num4FirstFC
-        num4EachFM = num4FirstFC / num4OutputChannels  # 先保证每个FM贡献同等数量的池化特征；
-        #print "num4EachFM:", num4EachFM
-        #raw_input("...")
+        hConv1ForPoolingInput = tf.reshape(hConv1,
+            [shape4hConv1[0],
+             shape4hConv1[1],
+             shape4hConv1[2] * shape4hConv1[3],
+             1],
+            name = "hConv1ForPoolingInput")
+        print "shape4hConv1:", shape4hConv1
+        shape4hConv1ForPoolingInput = hConv1ForPoolingInput.get_shape().as_list()
+        print "shape4hConv1ForPoolingInput:", shape4hConv1ForPoolingInput
+        num4FirstFC = self.FLAGS.num4FirstFC
         pool1KHeight = 1
-        pool1KWidth = math.ceil(shape4hConv1[1] / num4EachFM)
+        pool1KWidth = int(math.ceil(shape4hConv1ForPoolingInput[2] * 1.0 / num4FirstFC))
+        print "pool1KWidth:", pool1KWidth
         pool1SHeight = 1
-        pool1SWidth = math.ceil(shape4hConv1[1] / num4EachFM)
-        hROIPooling = self.avg_pool(hConv1,
+        pool1SWidth = int(math.ceil(shape4hConv1ForPoolingInput[2] * 1.0 / num4FirstFC))
+        print "pool1SWidth:", pool1SWidth
+        hROIPooling = self.avg_pool(hConv1ForPoolingInput,
             pool1KHeight,
             pool1KWidth,
             pool1SHeight,
             pool1SWidth)
+
         hROIPooling4FCInput = tf.reshape(hROIPooling,
-            [self.FLAGS.batchSize,
-             -1],  # 这一步的reshape有待验证是否正确
+            [self.FLAGS.batchSize, -1],  # 这一步的reshape有待验证是否正确
             name = "hROIPooling4FCInput")
         shape4hROIPooling4FCInput = hROIPooling4FCInput.get_shape().as_list()
+        print "shape4hROIPooling4FCInput:", shape4hROIPooling4FCInput
+        raw_input("....")
+      #with tf.variable_scope("roiPoolingLayer"):
+      #  num4FirstFC = self.FLAGS.num4FirstFC
+      #  shape4hConv1 = hConv1.get_shape().as_list()
+      #  #print shape4hConv1, "......"
+      #  #print num4FirstFC
+      #  num4EachFM = num4FirstFC / num4OutputChannels  # 先保证每个FM贡献同等数量的池化特征；
+      #  #print "num4EachFM:", num4EachFM
+      #  #raw_input("...")
+      #  pool1KHeight = 1
+      #  pool1KWidth = math.ceil(shape4hConv1[1] / num4EachFM)
+      #  pool1SHeight = 1
+      #  pool1SWidth = math.ceil(shape4hConv1[1] / num4EachFM)
+      #  hROIPooling = self.avg_pool(hConv1,
+      #      pool1KHeight,
+      #      pool1KWidth,
+      #      pool1SHeight,
+      #      pool1SWidth)
+      #  hROIPooling4FCInput = tf.reshape(hROIPooling,
+      #      [self.FLAGS.batchSize,
+      #       -1],  # 这一步的reshape有待验证是否正确
+      #      name = "hROIPooling4FCInput")
+      #  shape4hROIPooling4FCInput = hROIPooling4FCInput.get_shape().as_list()
 
       # First fully connected layer
       name4VariableScope = "fc1Layer"
