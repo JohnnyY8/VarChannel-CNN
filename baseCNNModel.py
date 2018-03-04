@@ -70,7 +70,7 @@ class BaseCNNModel(CommonModelFunc):
         shape4hConv1 = hConv1.get_shape().as_list()
         #print shape4hConv1, "......"
         #print num4FirstFC
-        num4EachFM = num4FirstFC / num4OutputChannels  # TODO 这个计算不对，除不尽的时候怎么破
+        num4EachFM = num4FirstFC / num4OutputChannels  # 先保证每个FM贡献同等数量的池化特征；
         #print "num4EachFM:", num4EachFM
         #raw_input("...")
         pool1KHeight = 1
