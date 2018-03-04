@@ -138,25 +138,6 @@ if __name__ == "__main__":
   os.environ["CUDA_VISIBLE_DEVICES"] = FLAGS.gpuId
   insDataPro = DataPro(FLAGS)
 
-  # For DNN
-  #insDataPro.loadDataInL1000()
-  #print insDataPro.drugSampleId.shape
-  #print insDataPro.drugData.shape
-  #print insDataPro.tpSampleId.shape
-  #print insDataPro.tpData.shape
-  #print insDataPro.dnaIdNew.shape
-  #print insDataPro.yLabel.shape
-  #print insDataPro.realNegativeTpData.shape
-  #insDataPro.loadOneCLData()
-  #insDataPro.transferLabel2TwoCol()
-  #numOfNeurons = [1956, 200, 10, 2]
-  #insDNNModel = BaseDNNModel(FLAGS, numOfNeurons)
-  #insDNNModel.buildBaseDNNModelGraph()
-  #insModelTrainer = ModelTrainer(FLAGS, insDataPro, insDNNModel)
-  #modelSavePath = insModelTrainer.trainDNN()
-  #insGenerateEggs = GenerateEggs(FLAGS, insDataPro, modelSavePath)
-  #insGenerateEggs.generateEggs2Files()
-
   # For CNN
   insDataPro.loadEnsembleDataAndLabel()
   print insDataPro.positiveData.shape, insDataPro.negativeData.shape, insDataPro.allTrainData.shape

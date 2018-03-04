@@ -9,7 +9,7 @@ from dataSpliter import *
 from resultStorer import *
 
 class ModelTrainer:
-  
+
   def __init__(self, FLAGS, insDataPro, insModel):
     self.FLAGS = FLAGS
     self.insDataPro = insDataPro

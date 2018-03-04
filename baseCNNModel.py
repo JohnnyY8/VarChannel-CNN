@@ -79,10 +79,8 @@ class BaseCNNModel(CommonModelFunc):
         num4FirstFC = self.FLAGS.num4FirstFC
         pool1KHeight = 1
         pool1KWidth = int(math.ceil(shape4hConv1ForPoolingInput[2] * 1.0 / num4FirstFC))
-        print "pool1KWidth:", pool1KWidth
         pool1SHeight = 1
         pool1SWidth = int(math.ceil(shape4hConv1ForPoolingInput[2] * 1.0 / num4FirstFC))
-        print "pool1SWidth:", pool1SWidth
         hROIPooling = self.avg_pool(hConv1ForPoolingInput,
             pool1KHeight,
             pool1KWidth,
@@ -94,7 +92,6 @@ class BaseCNNModel(CommonModelFunc):
             name = "hROIPooling4FCInput")
         shape4hROIPooling4FCInput = hROIPooling4FCInput.get_shape().as_list()
         print "shape4hROIPooling4FCInput:", shape4hROIPooling4FCInput
-        raw_input("....")
       #with tf.variable_scope("roiPoolingLayer"):
       #  num4FirstFC = self.FLAGS.num4FirstFC
       #  shape4hConv1 = hConv1.get_shape().as_list()
