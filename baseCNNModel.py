@@ -150,7 +150,7 @@ class BaseCNNModel(CommonModelFunc):
             [num4FirstFC, num4SecondFC])
         self.variable_summaries(wFC2)
 
-        bHidden = self.init_bias_variable(name4Bias,
+        bFC2 = self.init_bias_variable(name4Bias,
             [num4SecondFC])
         self.variable_summaries(bFC2)
 
@@ -168,11 +168,13 @@ class BaseCNNModel(CommonModelFunc):
         self.variable_summaries(hFC2DropOut)
 
       with tf.variable_scope("outputLayer"):
-        wOutput = init_weight_variable([hFC2, 2])
-        bOutput = init_bias_variable([2])
+        name4Weight, name4Bias, name4Act = "wOutput", "bOutput", "hOutput"
+
+        wOutput = self.init_weight_variable(name4Weight, [hFC2, 2])
+        bOutput = self.init_bias_variable(name4Bias, [2])
         hOutput = tf.matmul(hFC2, wOutput) + bOutput
         #hOutput = tf.matmul(hFC2DropOut, wOutput) + bOutput
-        yOutput = tf.nn.softmax(hOutput)
+        yOutput = tf.nn.softmax(hOutput, name = name4Act)
 
       with tf.variable_scope("costLayer"):
         predPro4PandN = tf.reshape(tf.reduce_sum(yOutput, reduction_indices = [0]), [-1, 2])
