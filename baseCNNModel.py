@@ -199,16 +199,45 @@ class BaseCNNModel(CommonModelFunc):
         #hOutput = tf.matmul(hFC2DropOut, wOutput) + bOutput
         yOutput = tf.nn.softmax(hOutput, name = name4Act)
 
+      # Cost function
       with tf.variable_scope("costLayer"):
-        predPro4PandN = tf.reshape(tf.reduce_sum(yOutput, reduction_indices = [0]), [-1, 2])
-        predPro4P = tf.matmul(predPro4PandN, tf.constant([[0.], [1.]]))
-        predPro4N = tf.matmul(predPro4PandN, tf.constant([[1.], [0.]]))
-        predPro4PandNwithLabel = tf.reshape(tf.reduce_sum(self.yLabel * yOutput, reduction_indices = [0]), [-1, 2])
-        predPro4PwithLabel = tf.matmul(predPro4PandNwithLabel, tf.constant([[0.], [1.]]))
-        predPro4NwithLabel = tf.matmul(predPro4PandNwithLabel, tf.constant([[1.], [0.]]))
-        cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = hOutput, labels = self.yLabel)) - nWeight * predPro4NwithLabel
-        trainStep = tf.train.AdamOptimizer(learningRate).minimize(cost)  # GradientDescentOptimizer AdadeltaOptimizer AdamOptimizer
+        predPro4PandN = tf.reshape(
+            tf.reduce_sum(
+                yOutput,
+                reduction_indices = [0]),
+            [-1, 2])
+
+        predPro4P = tf.matmul(
+            predPro4PandN,
+            tf.constant([[0.], [1.]]))
+
+        predPro4N = tf.matmul(
+            predPro4PandN,
+            tf.constant([[1.], [0.]]))
+
+        predPro4PandNwithLabel = tf.reshape(
+            tf.reduce_sum(
+                self.yLabel * yOutput,
+                reduction_indices = [0]),
+            [-1, 2])
+
+        predPro4PwithLabel = tf.matmul(
+            predPro4PandNwithLabel,
+            tf.constant([[0.], [1.]]))
+
+        predPro4NwithLabel = tf.matmul(
+            predPro4PandNwithLabel,
+            tf.constant([[1.], [0.]]))
+
+        self.cost = tf.reduce_mean(
+            tf.nn.softmax_cross_entropy_with_logits(
+                logits = hOutput,
+                labels = self.yLabel)) - nWeight * predPro4NwithLabel
+
+        trainStep = tf.train.AdamOptimizer(learningRate).minimize(cost)
+
+      # Accuracy
+      with tf.variable_scope("accuracyLayer"):
         correctPrediction = tf.equal(tf.argmax(yOutput, 1), tf.argmax(self.yLabel, 1))
         accuracy = tf.reduce_mean(tf.cast(correctPrediction, tf.float32))
-
 
