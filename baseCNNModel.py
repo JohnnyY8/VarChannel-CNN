@@ -63,12 +63,14 @@ class BaseCNNModel(CommonModelFunc):
             [num4OutputChannels])
 
         hConv1 = tf.nn.relu(
-            self.conv2d(
-                self.xInput,
-                wConv1,
-                conv1SHeight,
-                conv1SWidth,
-                num4InputChannels) + bConv1,
+            tf.add(
+                self.conv2d(
+                    self.xInput,
+                    wConv1,
+                    conv1SHeight,
+                    conv1SWidth,
+                    num4InputChannels),
+                bConv1),
             name = "hConv1")
 
       # ROI pooling layer
@@ -193,7 +195,7 @@ class BaseCNNModel(CommonModelFunc):
       with tf.variable_scope("outputLayer"):
         name4Weight, name4Bias, name4Act = "wOutput", "bOutput", "hOutput"
 
-        wOutput = self.init_weight_variable(name4Weight, [hFC2, 2])
+        wOutput = self.init_weight_variable(name4Weight, [num4SecondFC, 2])
         bOutput = self.init_bias_variable(name4Bias, [2])
         hOutput = tf.matmul(hFC2, wOutput) + bOutput
         #hOutput = tf.matmul(hFC2DropOut, wOutput) + bOutput
