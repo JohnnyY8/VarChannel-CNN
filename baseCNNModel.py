@@ -21,20 +21,23 @@ class BaseCNNModel(CommonModelFunc):
 
       with tf.variable_scope("inputLayer"):
         num4Features = self.FLAGS.num4Features
-        self.xData = tf.placeholder(tf.float32,
+        self.xData = tf.placeholder(
+            tf.float32,
             [self.FLAGS.batchSize,
              num4Features,
              self.FLAGS.maxInputChannels],
             name = "xData")
 
-        self.xInput = tf.reshape(self.xData,
+        self.xInput = tf.reshape(
+            self.xData,
             [-1,
              self.FLAGS.batchSize,
              num4Features,
              self.FLAGS.maxInputChannels],
             name = "xInput")
 
-        self.yLabel = tf.placeholder(tf.float32,
+        self.yLabel = tf.placeholder(
+            tf.float32,
             [1, 2],
             name = "yLabel")
 
@@ -48,16 +51,20 @@ class BaseCNNModel(CommonModelFunc):
         num4InputChannels = self.FLAGS.maxInputChannels
         num4OutputChannels = self.FLAGS.num4OutputChannels
 
-        wConv1 = self.init_weight_variable("wConv1",
+        wConv1 = self.init_weight_variable(
+            "wConv1",
             [conv1KHeight,
              conv1KWidth,
              num4InputChannels,
              num4OutputChannels])
 
-        bConv1 = self.init_bias_variable("bConv1", [num4OutputChannels])
+        bConv1 = self.init_bias_variable(
+            "bConv1",
+            [num4OutputChannels])
 
         hConv1 = tf.nn.relu(
-            self.conv2d(self.xInput,
+            self.conv2d(
+                self.xInput,
                 wConv1,
                 conv1SHeight,
                 conv1SWidth,
@@ -67,7 +74,8 @@ class BaseCNNModel(CommonModelFunc):
       # ROI pooling layer
       with tf.variable_scope("roiPoolingLayer"):
         shape4hConv1 = hConv1.get_shape().as_list()
-        hConv1ForPoolingInput = tf.reshape(hConv1,
+        hConv1ForPoolingInput = tf.reshape(
+            hConv1,
             [shape4hConv1[0],
              shape4hConv1[1],
              shape4hConv1[2] * shape4hConv1[3],
@@ -81,13 +89,15 @@ class BaseCNNModel(CommonModelFunc):
         pool1KWidth = int(math.ceil(shape4hConv1ForPoolingInput[2] * 1.0 / num4FirstFC))
         pool1SHeight = 1
         pool1SWidth = int(math.ceil(shape4hConv1ForPoolingInput[2] * 1.0 / num4FirstFC))
-        hROIPooling = self.avg_pool(hConv1ForPoolingInput,
+        hROIPooling = self.avg_pool(
+            hConv1ForPoolingInput,
             pool1KHeight,
             pool1KWidth,
             pool1SHeight,
             pool1SWidth)
 
-        hROIPooling4FCInput = tf.reshape(hROIPooling,
+        hROIPooling4FCInput = tf.reshape(
+            hROIPooling,
             [self.FLAGS.batchSize, -1],  # 这一步的reshape有待验证是否正确
             name = "hROIPooling4FCInput")
         shape4hROIPooling4FCInput = hROIPooling4FCInput.get_shape().as_list()
@@ -121,21 +131,27 @@ class BaseCNNModel(CommonModelFunc):
         name4Weight, name4Bias = "wFC1", "bFC1"
         name4PreAct, name4Act = "preActFC1", "hFC1"
 
-        wFC1 = self.init_weight_variable(name4Weight,
+        wFC1 = self.init_weight_variable(
+            name4Weight,
             [shape4hROIPooling4FCInput[1],
              num4FirstFC])
         self.variable_summaries(wFC1)
 
-        bFC1 = self.init_bias_variable(name4Bias,
+        bFC1 = self.init_bias_variable(
+            name4Bias,
             [num4FirstFC])
         self.variable_summaries(bFC1)
 
-        preActFC1 = tf.add(tf.matmul(hROIPooling4FCInput, wFC1),
+        preActFC1 = tf.add(
+            tf.matmul(
+                hROIPooling4FCInput,
+                wFC1),
             bFC1,
             name = name4PreAct)
         self.variable_summaries(preActFC1)
 
-        hFC1 = tf.nn.relu(preActFC1,
+        hFC1 = tf.nn.relu(
+            preActFC1,
             name = name4Act)
         self.variable_summaries(hFC1)
 
@@ -146,24 +162,31 @@ class BaseCNNModel(CommonModelFunc):
         name4Weight, name4Bias = "wFC2", "bFC2"
         name4PreAct, name4Act = "preActFC2", "hFC2"
 
-        wFC2 = self.init_weight_variable(name4Weight,
+        wFC2 = self.init_weight_variable(
+            name4Weight,
             [num4FirstFC, num4SecondFC])
         self.variable_summaries(wFC2)
 
-        bFC2 = self.init_bias_variable(name4Bias,
+        bFC2 = self.init_bias_variable(
+            name4Bias,
             [num4SecondFC])
         self.variable_summaries(bFC2)
 
-        preActFC2 = tf.add(tf.matmul(hFC1, wFC2),
+        preActFC2 = tf.add(
+            tf.matmul(
+                hFC1,
+                wFC2),
             bFC2,
             name = name4PreAct)
         self.variable_summaries(preActFC2)
 
-        hFC2 = tf.nn.relu(preActFC2,
+        hFC2 = tf.nn.relu(
+            preActFC2,
             name = name4Act)
         self.variable_summaries(hFC2)
 
-        hFC2DropOut = tf.nn.dropout(hFC2,
+        hFC2DropOut = tf.nn.dropout(
+            hFC2,
             self.keepProb)
         self.variable_summaries(hFC2DropOut)
 
