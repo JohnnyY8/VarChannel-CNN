@@ -100,7 +100,7 @@ class ModelTrainer:
         random.shuffle(trainIndex)
         print("No.%d epoch is starting..." % (num4Epoches))
 
-        for ind in xrange(0,self.xTrain.shape[0], self.FLAGS.batchSize):
+        for ind in xrange(0, self.xTrain.shape[0], self.FLAGS.batchSize):
           batchXs, batchYs = \
               self.xTrain[trainIndex[ind: ind + self.FLAGS.batchSize]], \
               self.yTrain[trainIndex[ind: ind + self.FLAGS.batchSize]]
@@ -132,14 +132,14 @@ class ModelTrainer:
 
           else:  # Record a summary
             newTrainLoss, newTrainAccu, summary, tempTS = sess.run(
-                  [self.insModel.loss,
-                   self.insModel.accuracy,
-                   self.insModel.merged,
-                   self.insModel.trainStep],
-                  feed_dict = {
-                      self.insModel.xData: batchXs,
-                      self.insModel.yLabel: batchYs,
-                      self.insModel.keepProb: self.FLAGS.dropOutRate})
+                [self.insModel.loss,
+                 self.insModel.accuracy,
+                 self.insModel.merged,
+                 self.insModel.trainStep],
+                feed_dict = {
+                    self.insModel.xData: batchXs,
+                    self.insModel.yLabel: batchYs,
+                    self.insModel.keepProb: self.FLAGS.dropOutRate})
             self.trainWriter.add_summary(summary, ind4Summary)
 
             self.insResultStorer.addLoss(newTrainLoss)

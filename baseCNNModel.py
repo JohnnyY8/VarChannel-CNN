@@ -229,15 +229,20 @@ class BaseCNNModel(CommonModelFunc):
             predPro4PandNwithLabel,
             tf.constant([[1.], [0.]]))
 
-        self.cost = tf.reduce_mean(
-            tf.nn.softmax_cross_entropy_with_logits(
-                logits = hOutput,
-                labels = self.yLabel)) - nWeight * predPro4NwithLabel
+        self.cost = tf.subtract(
+            tf.reduce_mean(
+                tf.nn.softmax_cross_entropy_with_logits(
+                    logits = hOutput,
+                    labels = self.yLabel)),
+            self.FLAGS.nWeight * predPro4NwithLabel,
+            name = "loss")
+        tf.summary.scalar("lossValue", tf.reduce_mean(self.cost))
 
-        trainStep = tf.train.AdamOptimizer(learningRate).minimize(cost)
+        self.trainStep = tf.train.AdamOptimizer(
+            self.FLAGS.learningRate).minimize(self.cost)
 
       # Accuracy
       with tf.variable_scope("accuracyLayer"):
         correctPrediction = tf.equal(tf.argmax(yOutput, 1), tf.argmax(self.yLabel, 1))
-        accuracy = tf.reduce_mean(tf.cast(correctPrediction, tf.float32))
+        self.accuracy = tf.reduce_mean(tf.cast(correctPrediction, tf.float32))
 
