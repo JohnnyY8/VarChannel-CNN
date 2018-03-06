@@ -17,7 +17,7 @@ class CommonModelFunc:
     return tf.Variable(initial_value = initial, name = varName)
 
   # Convolutional operation
-  def conv2d(self, x, W, s_height, s_width, s_channels):
+  def conv2d(self, x, W, s_height, s_width):
     # Given an input tensor of shape `[batch, in_height, in_width, in_channels]`
     #     and a filter / kernel tensor of shape.
     # x: [batch, in_height, in_width, in_channels]
@@ -27,7 +27,7 @@ class CommonModelFunc:
     return tf.nn.conv2d(
         x,
         W,
-        strides = [1, s_height, s_width, s_channels],
+        strides = [1, s_height, s_width, 1],
         padding = 'SAME')
 
   # Max pooling operation

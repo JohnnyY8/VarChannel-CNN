@@ -67,8 +67,7 @@ class BaseCNNModel(CommonModelFunc):
                   self.xInput,
                   wConv1,
                   conv1SHeight,
-                  conv1SWidth,
-                  num4InputChannels),
+                  conv1SWidth),
               bConv1),
           name = "hConv1")
 
