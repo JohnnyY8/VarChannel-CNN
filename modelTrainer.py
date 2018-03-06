@@ -36,7 +36,7 @@ class ModelTrainer:
 
           print "The shape of batchXs and batchYs:", batchXs.shape, batchYs.shape
           newTrainLoss, newTrainAccu, tempTS = sess.run(
-              [self.insModel.cost,
+              [self.insModel.loss,
                self.insModel.accuracy,
                self.insModel.trainStep],
               feed_dict = {

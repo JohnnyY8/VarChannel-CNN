@@ -16,7 +16,7 @@ class BaseCNNModel(CommonModelFunc):
   # Building CNN graph for base model
   def buildBaseCNNModelGraph(self):
     num4Features = self.FLAGS.num4Features
-    maxInputChannels = self.FLAGS.num4InputChannels
+    num4InputChannels = self.FLAGS.num4InputChannels
     num4FirstFC = self.FLAGS.num4FirstFC
     num4SecondFC = self.FLAGS.num4SecondFC
 
@@ -85,7 +85,7 @@ class BaseCNNModel(CommonModelFunc):
       print "len4AllFM:", len4AllFM
       hConv1ForPoolingInput = tf.reshape(
           hConv1,
-          [-1, 1, len4AllFM, 1]
+          [-1, 1, len4AllFM, 1],
           name = "hConv1ForPoolingInput")
 
       pool1KHeight = 1
@@ -100,22 +100,20 @@ class BaseCNNModel(CommonModelFunc):
           pool1SHeight,
           pool1SWidth)
 
-      hROIPooling4FCInput = tf.reshape(
-          hROIPooling,
-          [self.FLAGS.batchSize, -1],  # 这一步的reshape有待验证是否正确
-          name = "hROIPooling4FCInput")
-      shape4hROIPooling4FCInput = hROIPooling4FCInput.get_shape().as_list()
-      print "shape4hROIPooling4FCInput:", shape4hROIPooling4FCInput
 
     # First fully connected layer
-    name4VariableScope = "fc1Layer"
-    with tf.variable_scope(name4VariableScope):
+    with tf.variable_scope("fc1Layer"):
       name4Weight, name4Bias = "wFC1", "bFC1"
       name4PreAct, name4Act = "preActFC1", "hFC1"
 
+      shape4hROIPooling = hROIPooling.get_shape().as_list()
+      print "shape4hROIPooling:", shape4hROIPooling
+      len4EachFM = shape4hROIPooling[2]
+      input4FC1 = tf.reshape(hROIPooling, [-1, len4EachFM])
+
       wFC1 = self.init_weight_variable(
           name4Weight,
-          [shape4hROIPooling4FCInput[1],
+          [len4EachFM,
            num4FirstFC])
       self.variable_summaries(wFC1)
 
@@ -126,7 +124,7 @@ class BaseCNNModel(CommonModelFunc):
 
       preActFC1 = tf.add(
           tf.matmul(
-              hROIPooling4FCInput,
+              input4FC1,
               wFC1),
           bFC1,
           name = name4PreAct)
@@ -138,8 +136,7 @@ class BaseCNNModel(CommonModelFunc):
       self.variable_summaries(hFC1)
 
     # Second fully connected layer
-    name4VariableScope = "fc2Layer"
-    with tf.variable_scope(name4VariableScope):
+    with tf.variable_scope("fc2Layer"):
       name4Weight, name4Bias = "wFC2", "bFC2"
       name4PreAct, name4Act = "preActFC2", "hFC2"
 
@@ -176,17 +173,15 @@ class BaseCNNModel(CommonModelFunc):
 
       wOutput = self.init_weight_variable(name4Weight, [num4SecondFC, 2])
       bOutput = self.init_bias_variable(name4Bias, [2])
-      hOutput = tf.matmul(hFC2, wOutput) + bOutput
-      print "The shape of hOuput:", hOutput.get_shape().as_list()
-      print self.yLabel.shape
+      preActOutput = tf.add(tf.matmul(hFC2, wOutput), bOutput)
       #hOutput = tf.matmul(hFC2DropOut, wOutput) + bOutput
-      yOutput = tf.nn.softmax(hOutput, name = name4Act)
+      self.hOutput = tf.nn.softmax(preActOutput, name = name4Act)
 
     # Cost function
-    with tf.variable_scope("costLayer"):
+    with tf.variable_scope("lossLayer"):
       predPro4PandN = tf.reshape(
           tf.reduce_sum(
-              yOutput,
+              self.hOutput,
               reduction_indices = [0]),
           [-1, 2])
 
@@ -200,7 +195,7 @@ class BaseCNNModel(CommonModelFunc):
 
       predPro4PandNwithLabel = tf.reshape(
           tf.reduce_sum(
-              self.yLabel * yOutput,
+              self.yLabel * self.hOutput,
               reduction_indices = [0]),
           [-1, 2])
 
@@ -212,20 +207,20 @@ class BaseCNNModel(CommonModelFunc):
           predPro4PandNwithLabel,
           tf.constant([[1.], [0.]]))
 
-      self.cost = tf.subtract(
+      self.loss = tf.subtract(
           tf.reduce_mean(
               tf.nn.softmax_cross_entropy_with_logits(
-                  logits = hOutput,
+                  logits = preActOutput,
                   labels = self.yLabel)),
           self.FLAGS.nWeight * predPro4NwithLabel,
           name = "loss")
-      tf.summary.scalar("lossValue", tf.reduce_mean(self.cost))
+      tf.summary.scalar("lossValue", tf.reduce_mean(self.loss))
 
       self.trainStep = tf.train.AdamOptimizer(
-          self.FLAGS.learningRate).minimize(self.cost)
+          self.FLAGS.learningRate).minimize(self.loss)
 
     # Accuracy
     with tf.variable_scope("accuracyLayer"):
-      correctPrediction = tf.equal(tf.argmax(yOutput, 1), tf.argmax(self.yLabel, 1))
+      correctPrediction = tf.equal(tf.argmax(self.hOutput, 1), tf.argmax(self.yLabel, 1))
       self.accuracy = tf.reduce_mean(tf.cast(correctPrediction, tf.float32))
 
