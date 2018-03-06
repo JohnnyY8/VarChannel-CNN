@@ -38,7 +38,7 @@ class BaseCNNModel(CommonModelFunc):
 
         self.yLabel = tf.placeholder(
             tf.float32,
-            [1, 2],
+            [self.FLAGS.batchSize, 2],
             name = "yLabel")
 
       # First convolutional layer
@@ -198,6 +198,9 @@ class BaseCNNModel(CommonModelFunc):
         wOutput = self.init_weight_variable(name4Weight, [num4SecondFC, 2])
         bOutput = self.init_bias_variable(name4Bias, [2])
         hOutput = tf.matmul(hFC2, wOutput) + bOutput
+        print "The shape of hOuput:", hOutput.get_shape().as_list()
+        print self.yLabel.shape
+        raw_input("...")
         #hOutput = tf.matmul(hFC2DropOut, wOutput) + bOutput
         yOutput = tf.nn.softmax(hOutput, name = name4Act)
 
