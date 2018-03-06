@@ -35,7 +35,7 @@ class ModelTrainer:
               self.yTrain[trainIndex[ind: ind + self.FLAGS.batchSize]]
 
           newTrainLoss, newTrainAccu, tempTS = sess.run(
-              [self.insModel.loss,
+              [self.insModel.cost,
                self.insModel.accuracy,
                self.insModel.trainStep],
               feed_dict = {

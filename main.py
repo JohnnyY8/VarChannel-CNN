@@ -144,3 +144,5 @@ if __name__ == "__main__":
   #print insDataPro.allTrainLabel.shape
   insCNNModel = BaseCNNModel(FLAGS, insDataPro)
   insCNNModel.buildBaseCNNModelGraph()
+  insModelTrainer = ModelTrainer(FLAGS, insDataPro, insCNNModel)
+  modelSavePath = insModelTrainer.trainDNN()
