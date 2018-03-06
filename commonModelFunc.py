@@ -7,14 +7,14 @@ class CommonModelFunc:
   # Initial weight variable
   def init_weight_variable(self, varName, shape):
     initial = tf.truncated_normal(shape, stddev=0.1)
-    #return tf.get_variable(varName, shape, initializer = initial)
     return tf.Variable(initial_value = initial, name = varName)
+    #return tf.get_variable(varName, shape, initializer = initial)
 
   # Initial bias variable
   def init_bias_variable(self, varName, shape):
     initial = tf.constant(0.1, shape=shape)
-    #return tf.get_variable(varName, shape, initializer = initial)
     return tf.Variable(initial_value = initial, name = varName)
+    #return tf.get_variable(varName, shape, initializer = initial)
 
   # Convolutional operation
   def conv2d(self, x, W, s_height, s_width):

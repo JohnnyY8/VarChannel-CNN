@@ -108,13 +108,13 @@ flags.DEFINE_integer(
     "The width of convolutional kernel stride.")
 
 flags.DEFINE_integer(
-    "maxInputChannels",
+    "num4InputChannels",
     7,
-    "The maximum number of input channels.")
+    "The number of input channels.")
 
 flags.DEFINE_integer(
     "batchSize",
-    150,
+    146,
     "How many samples are trained in each iteration.")
 
 flags.DEFINE_integer(
@@ -140,8 +140,8 @@ if __name__ == "__main__":
 
   # For CNN
   insDataPro.loadEnsembleDataAndLabel()
-  #print insDataPro.positiveData.shape, insDataPro.negativeData.shape, insDataPro.allTrainData.shape
-  #print insDataPro.allTrainLabel.shape
+  print insDataPro.positiveData.shape, insDataPro.negativeData.shape, insDataPro.allTrainData.shape
+  print insDataPro.allTrainLabel.shape
   insCNNModel = BaseCNNModel(FLAGS, insDataPro)
   insCNNModel.buildBaseCNNModelGraph()
   insModelTrainer = ModelTrainer(FLAGS, insDataPro, insCNNModel)

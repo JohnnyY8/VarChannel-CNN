@@ -34,6 +34,7 @@ class ModelTrainer:
           batchXs, batchYs = self.xTrain[trainIndex[ind: ind + self.FLAGS.batchSize]], \
               self.yTrain[trainIndex[ind: ind + self.FLAGS.batchSize]]
 
+          print "The shape of batchXs and batchYs:", batchXs.shape, batchYs.shape
           newTrainLoss, newTrainAccu, tempTS = sess.run(
               [self.insModel.cost,
                self.insModel.accuracy,
