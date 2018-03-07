@@ -20,7 +20,7 @@ class BaseCNNModel(CommonModelFunc):
     num4FirstFC = self.FLAGS.num4FirstFC
     num4SecondFC = self.FLAGS.num4SecondFC
 
-    self.init = tf.global_variables_initializer()
+    #self.init = tf.global_variables_initializer()
     self.keepProb = tf.placeholder(
         tf.float32,
         name = "keepProb")
@@ -219,4 +219,8 @@ class BaseCNNModel(CommonModelFunc):
     with tf.variable_scope("accuracyLayer"):
       correctPrediction = tf.equal(tf.argmax(self.hOutput, 1), tf.argmax(self.yLabel, 1))
       self.accuracy = tf.reduce_mean(tf.cast(correctPrediction, tf.float32))
+      tf.summary.scalar("accuracy", self.accuracy)
 
+    self.merged = tf.summary.merge_all()
+
+    self.init = tf.global_variables_initializer()

@@ -33,6 +33,11 @@ flags.DEFINE_string(
     "The path for saving model.")
 
 flags.DEFINE_string(
+    "path4Summaries",
+    "./files/summaries",
+    "The path for saving summaries.")
+
+flags.DEFINE_string(
     "path4SaveEggsFile",
     "./files/eggfile/",
     "The path for saving eggs file.")
@@ -145,4 +150,4 @@ if __name__ == "__main__":
   insCNNModel = BaseCNNModel(FLAGS, insDataPro)
   insCNNModel.buildBaseCNNModelGraph()
   insModelTrainer = ModelTrainer(FLAGS, insDataPro, insCNNModel)
-  modelSavePath = insModelTrainer.trainDNN()
+  modelSavePath = insModelTrainer.trainCNN()
