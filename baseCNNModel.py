@@ -28,7 +28,7 @@ class BaseCNNModel(CommonModelFunc):
     with tf.variable_scope("inputLayer"):
       self.xData = tf.placeholder(
           tf.float32,
-          [None, #self.FLAGS.batchSize,
+          [None,
            num4Features,
            num4InputChannels],
           name = "xData")
@@ -80,9 +80,7 @@ class BaseCNNModel(CommonModelFunc):
     # ROI pooling layer
     with tf.variable_scope("roiPoolingLayer"):
       shape4hConv1 = hConv1.get_shape().as_list()
-      print "shape4hConv1:", shape4hConv1
       len4AllFM = shape4hConv1[2] * shape4hConv1[3]
-      print "len4AllFM:", len4AllFM
       hConv1ForPoolingInput = tf.reshape(
           hConv1,
           [-1, 1, len4AllFM, 1],
@@ -100,20 +98,18 @@ class BaseCNNModel(CommonModelFunc):
           pool1SHeight,
           pool1SWidth)
 
-
     # First fully connected layer
     with tf.variable_scope("fc1Layer"):
       name4Weight, name4Bias = "wFC1", "bFC1"
       name4PreAct, name4Act = "preActFC1", "hFC1"
 
       shape4hROIPooling = hROIPooling.get_shape().as_list()
-      print "shape4hROIPooling:", shape4hROIPooling
-      len4EachFM = shape4hROIPooling[2]
-      input4FC1 = tf.reshape(hROIPooling, [-1, len4EachFM])
+      len4One = shape4hROIPooling[2]
+      input4FC1 = tf.reshape(hROIPooling, [-1, len4One])
 
       wFC1 = self.init_weight_variable(
           name4Weight,
-          [len4EachFM,
+          [len4One,
            num4FirstFC])
       self.variable_summaries(wFC1)
 
@@ -174,7 +170,7 @@ class BaseCNNModel(CommonModelFunc):
       wOutput = self.init_weight_variable(name4Weight, [num4SecondFC, 2])
       bOutput = self.init_bias_variable(name4Bias, [2])
       preActOutput = tf.add(tf.matmul(hFC2, wOutput), bOutput)
-      #hOutput = tf.matmul(hFC2DropOut, wOutput) + bOutput
+      #preActOutput = tf.add(tf.matmul(hFC2DropOut, wOutput), bOutput)
       self.hOutput = tf.nn.softmax(preActOutput, name = name4Act)
 
     # Cost function
