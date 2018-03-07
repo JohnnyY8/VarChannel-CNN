@@ -166,7 +166,7 @@ class ModelTrainer:
                  self.insModel.keepProb: 1.0})
         self.testWriter.add_summary(summary, num4Epoches)
         self.insResultStorer.addValAccu(newValAccu)
-        print("    The validation accuracy is %.6f..." % (newValAccu))
+        print("    The validation accuracy is %.6f." % (newValAccu))
 
         if newValAccu > bestValAccu:
           bestValAccu = newValAccu
