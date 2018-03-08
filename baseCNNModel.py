@@ -20,7 +20,6 @@ class BaseCNNModel(CommonModelFunc):
     num4FirstFC = self.FLAGS.num4FirstFC
     num4SecondFC = self.FLAGS.num4SecondFC
 
-    #self.init = tf.global_variables_initializer()
     self.keepProb = tf.placeholder(
         tf.float32,
         name = "keepProb")
