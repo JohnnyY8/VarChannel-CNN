@@ -45,7 +45,7 @@ def putTogether(oldData, oldNamePairs, newData, newNamePairs):
     newData = np.delete(newData, 0, axis = 0)
     newNamePairs = np.delete(newNamePairs, 0, axis = 0)
     print "The shape of resData and resNamePairs:", np.array(resData).shape, np.array(resNamePairs).shape
-  
+
   while(oldNamePairs.shape[0] != 0):
     tempData = np.array(np.array(oldData[ind2Arr(0)]).tolist())
     if tempData.size == 1956:
@@ -98,7 +98,7 @@ if __name__ == "__main__":
 
         keepList = np.load(os.path.join(path4Prediction, "unlabeledNamePairOneCol4Prediction_" + cl + ".npy"))
         unlabeledData, unlabeledNamePair = filterDataAndNamePair(unlabeledData, unlabeledNamePair, keepList)
-   
+
       flag += 1
 
     elif flag == 1:
@@ -113,7 +113,7 @@ if __name__ == "__main__":
 
         negativeData, negativeNamePair = putTogether(negativeData, negativeNamePair, newNegativeData, newNegativeNamePair)
         print "Put negative data and name pairs together is done..."
-     
+
       elif pnu == 1:
         clPDPath = os.path.join(dataPath, cl, "positiveData.npy")
         newPositiveData = np.load(clPDPath)
@@ -146,12 +146,12 @@ if __name__ == "__main__":
         unlabeledData, unlabeledNamePair = putTogether(unlabeledData, unlabeledNamePair, newUnlabeledData, newUnlabeledNamePair)
         print "Put unlabeled data and name pairs together is done..."
 
-  if pnu == 0:    
-    np.save(savePath + "negativeData.npy", negativeData) 
-    np.save(savePath + "negativeNamePairOneCol.npy", negativeNamePair) 
+  if pnu == 0:
+    np.save(savePath + "negativeData.npy", negativeData)
+    np.save(savePath + "negativeNamePairOneCol.npy", negativeNamePair)
   elif pnu == 1:
-    np.save(savePath + "positiveData.npy", positiveData) 
-    np.save(savePath + "positiveNamePairOneCol.npy", positiveNamePair) 
+    np.save(savePath + "positiveData.npy", positiveData)
+    np.save(savePath + "positiveNamePairOneCol.npy", positiveNamePair)
   elif pnu == 2:
-    np.save(savePath + "unlabeledData.npy", unlabeledData) 
-    np.save(savePath + "unlabeledNamePairOneCol.npy", unlabeledNamePair) 
+    np.save(savePath + "unlabeledData.npy", unlabeledData)
+    np.save(savePath + "unlabeledNamePairOneCol.npy", unlabeledNamePair)
