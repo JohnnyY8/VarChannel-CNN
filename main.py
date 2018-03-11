@@ -151,4 +151,5 @@ if __name__ == "__main__":
   insCNNModel.buildBaseCNNModelGraph()
   insModelTrainer = ModelTrainer(FLAGS, insDataPro, insCNNModel)
   modelSavePath = insModelTrainer.trainCNN()
-  
+  insGenerateEggs = GenerateEggs(FLAGS, insDataPro, modelSavePath)
+  insGenerateEggs.generateEggs2Files()

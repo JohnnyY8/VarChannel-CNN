@@ -4,8 +4,13 @@ import numpy as np
 cls = ["A375", "A549", "HA1E", "HCC515", "HEPG2", "PC3", "VCAP"]
 
 basePath = "../files/newMap4UnlabeledData"
+ensemblePath = "../files/4training_ensemble"
 
 if __name__ == "__main__":
+  res, resSorted = [], []
+  positiveNamePairOneCol, unlabeledNamePairOneCol = \
+      np.load(os.path.join(ensemblePath, "positiveNamePairOneCol.npy")), \
+      np.load(os.path.join(ensemblePath, "unlabeledNamePairOneCol.npy"))
 
   for cl in cls:
     names4Prediction = []
@@ -18,6 +23,15 @@ if __name__ == "__main__":
     for rind, row in enumerate(newLabels):
       for cind, col in enumerate(row):
         if int(col) == 1:
-          names4Prediction.append(tpNames[rind] + drugNames[cind])
+          namePair = tpNames[rind] + drugNames[cind]
+          if namePair not in positiveNamePairOneCol:
+            res.append([tpNames[rind], drugNames[cind]])
 
-    np.save(os.path.join(basePath, "unlabeledNamePairOneCol4Prediction_" + cl), names4Prediction)
+  for iele in unlabeledNamePairOneCol:
+    for jele in res:
+      namePair = jele[0] + jele[1]
+      if namePair == iele:
+        resSorted.append(jele)
+        break
+
+  np.save(os.path.join(ensemblePath, "unlabeledNamePairTwoCol.npy"), resSorted)
