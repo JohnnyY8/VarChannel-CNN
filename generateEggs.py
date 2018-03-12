@@ -9,7 +9,7 @@ class GenerateEggs():
     self.insDataPro = insDataPro
     self.modelSavePath = modelSavePath
 
-  def generateEggs2Files(self):
+  def generateEggs2FilesInMapManner(self):
     tf.reset_default_graph()
     with tf.Session() as sess:
       saver = tf.train.import_meta_graph(self.modelSavePath + ".meta")
@@ -31,10 +31,6 @@ class GenerateEggs():
           probRes = np.append(probRes, probTemp, axis = 0)
       print "self.insDataPro.allUnlabeledData:", self.insDataPro.allUnlabeledData.shape
       print "probRes.shape:", probRes.shape
-      #print "probRes:", probRes
-      #print sum(probRes[0])
-      #print sum(probRes[1])
-      #print sum(probRes[2])
 
     with open(os.path.join(self.FLAGS.path4SaveEggsFile, "eggsfile.txt"), 'w') as filePointer:
       # Write drug names
@@ -66,3 +62,40 @@ class GenerateEggs():
         strLine += '\n'
         filePointer.write(strLine)
       print "The rate of eggs is:", count4Eggs / self.insDataPro.allUnlabeledData.shape[0]
+
+  def generateEggs2FilesIn3Col(self):
+    tf.reset_default_graph()
+    with tf.Session() as sess:
+      saver = tf.train.import_meta_graph(self.modelSavePath + ".meta")
+      graph = tf.get_default_graph()
+      saver.restore(sess, self.modelSavePath)
+      xData = graph.get_operation_by_name("inputLayer/xData").outputs[0]
+      yLabel = graph.get_operation_by_name("inputLayer/yLabel").outputs[0]
+      hOutput = graph.get_operation_by_name("outputLayer/hOutput").outputs[0]
+      keepProb = graph.get_operation_by_name("keepProb").outputs[0]
+      for i in xrange(0, self.insDataPro.allUnlabeledData.shape[0], self.FLAGS.batchSize):
+        feedData = {
+            xData: self.insDataPro.allUnlabeledData[i: i + self.FLAGS.batchSize],
+            yLabel: np.zeros((self.FLAGS.batchSize, 2)),
+            keepProb: 1.0}
+        probTemp = sess.run(hOutput, feed_dict = feedData)
+        if i == 0:
+          probRes = probTemp
+        else:
+          probRes = np.append(probRes, probTemp, axis = 0)
+      print "self.insDataPro.allUnlabeledData:", self.insDataPro.allUnlabeledData.shape
+      print "probRes.shape:", probRes.shape
+
+    unlabeledNamePairTwoCol = self.insDataPro.loadEnsembleUnlabeledNamePairTwoCol()
+    print unlabeledNamePairTwoCol.shape
+    raw_input("...")
+    with open(os.path.join(self.FLAGS.path4SaveEggsFile, "eggsfile.txt"), 'w') as filePointer:
+      distance = self.insDataPro.calcDistance(probRes)
+      print "distance.shape:", distance.shape
+      num4Eggs = 0.0
+      for ind, iele in enumerate(unlabeledNamePairTwoCol):
+        strLine = iele[0] + '\t' + iele[1] + '\t' + distance[ind] + '\n'
+        filePointer.write(strLine)
+        if distance[ind] > 0:
+          num4Eggs += 1
+      print "The rate of eggs is:", num4Eggs / self.insDataPro.allUnlabeledData.shape[0]

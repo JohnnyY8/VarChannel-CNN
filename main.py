@@ -145,11 +145,11 @@ if __name__ == "__main__":
 
   # For CNN
   insDataPro.loadEnsembleDataAndLabel()
-  print insDataPro.positiveData.shape, insDataPro.negativeData.shape, insDataPro.allTrainData.shape
-  print insDataPro.allTrainLabel.shape
+  #print insDataPro.positiveData.shape, insDataPro.negativeData.shape, insDataPro.allTrainData.shape
+  #print insDataPro.allTrainLabel.shape
   insCNNModel = BaseCNNModel(FLAGS, insDataPro)
   insCNNModel.buildBaseCNNModelGraph()
   insModelTrainer = ModelTrainer(FLAGS, insDataPro, insCNNModel)
   modelSavePath = insModelTrainer.trainCNN()
   insGenerateEggs = GenerateEggs(FLAGS, insDataPro, modelSavePath)
-  insGenerateEggs.generateEggs2Files()
+  insGenerateEggs.generateEggs2FilesIn3Col()

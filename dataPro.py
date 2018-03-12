@@ -181,7 +181,7 @@ class DataPro:
     distance = np.log(prob / (1 - prob))
     return distance[:, [1]]
 
-  # Load ensemble data
+  # Load ensemble data and label
   def loadEnsembleDataAndLabel(self):
     self.positiveData = np.load(os.path.join(self.ensembleDataPath, "positiveDataAppendZeros.npy"))
     self.negativeData = np.load(os.path.join(self.ensembleDataPath, "negativeDataAppendZeros.npy"))
@@ -189,6 +189,11 @@ class DataPro:
     self.buildEnsembleLabel()
     self.allUnlabeledData = np.load(os.path.join(self.ensembleDataPath, "unlabeledDataAppendZeros.npy"))
     print "Load ensemble data and label is done..."
+
+  # Load ensemble unlabledNamePairTwoCol
+  def loadEnsembleUnlabeledNamePairTwoCol(self):
+    self.unlabeledNamePairTwoCol = np.load(os.path.join(self.ensembleDataPath, "unlabeledNamePairTwoCol.npy"))
+    print "Load ensemble unlabeled name pairs in two cols is done..."
 
   # Build ensemble label
   def buildEnsembleLabel(self):
