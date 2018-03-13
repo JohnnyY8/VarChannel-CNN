@@ -15,7 +15,7 @@ nohup python -u main.py \
     --conv1KWidth 30 \
     --conv1SWidth 10 \
     --num4OutputChannels 30 \
-    --path4SaveModel ./files/intermediate/trainedModel0 \
-    --path4Summaries ./files/intermediate/summaries0 \
-    --path4SaveEggFiles ./files/intermediate/eggFiles0 \
-    1>./files/intermediate/info0.txt 2>&1 &
+    --path4SaveModel ./files/intermediate/trainedModel1 \
+    --path4Summaries ./files/intermediate/summaries1 \
+    --path4SaveEggFiles ./files/intermediate/eggFiles1 \
+    1>./files/intermediate/info1.txt 2>&1 &
