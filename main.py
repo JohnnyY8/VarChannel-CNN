@@ -39,7 +39,7 @@ flags.DEFINE_string(
 
 flags.DEFINE_string(
     "path4SaveEggsFile",
-    "./files/egg_files/",
+    "./files/eggFiles/",
     "The path for saving eggs file.")
 
 flags.DEFINE_string(

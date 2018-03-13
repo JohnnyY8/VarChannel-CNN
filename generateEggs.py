@@ -86,15 +86,13 @@ class GenerateEggs():
       print "self.insDataPro.allUnlabeledData:", self.insDataPro.allUnlabeledData.shape
       print "probRes.shape:", probRes.shape
 
-    unlabeledNamePairTwoCol = self.insDataPro.loadEnsembleUnlabeledNamePairTwoCol()
-    print unlabeledNamePairTwoCol.shape
-    raw_input("...")
+    self.insDataPro.loadEnsembleUnlabeledNamePairTwoCol()
     with open(os.path.join(self.FLAGS.path4SaveEggsFile, "eggsfile.txt"), 'w') as filePointer:
       distance = self.insDataPro.calcDistance(probRes)
       print "distance.shape:", distance.shape
       num4Eggs = 0.0
-      for ind, iele in enumerate(unlabeledNamePairTwoCol):
-        strLine = iele[0] + '\t' + iele[1] + '\t' + distance[ind] + '\n'
+      for ind, iele in enumerate(self.insDataPro.unlabeledNamePairTwoCol):
+        strLine = iele[0] + '\t' + iele[1] + '\t' + str(distance[ind]) + '\n'
         filePointer.write(strLine)
         if distance[ind] > 0:
           num4Eggs += 1
