@@ -7,7 +7,7 @@ nohup python -u main.py \
     --num4OutputChannels 20 \
     --path4SaveModel ./files/intermediate/trainedModel0 \
     --path4Summaries ./files/intermediate/summaries0 \
-    --path4SaveEggFiles ./files/intermediate/eggFiles0 \
+    --path4SaveEggsFile ./files/intermediate/eggFiles0 \
     1>./files/intermediate/info0.txt 2>&1 &
 
 nohup python -u main.py \
@@ -17,5 +17,5 @@ nohup python -u main.py \
     --num4OutputChannels 30 \
     --path4SaveModel ./files/intermediate/trainedModel1 \
     --path4Summaries ./files/intermediate/summaries1 \
-    --path4SaveEggFiles ./files/intermediate/eggFiles1 \
+    --path4SaveEggsFile ./files/intermediate/eggFiles1 \
     1>./files/intermediate/info1.txt 2>&1 &
