@@ -2,8 +2,8 @@
 
 nohup python -u main.py \
     --gpuId 0 \
-    --conv1KWidth 5 \
-    --conv1SWidth 2 \
+    --conv1KWidth 6 \
+    --conv1SWidth 3 \
     --num4OutputChannels 12 \
     --path4SaveModel ./files/intermediate/trainedModel0 \
     --path4Summaries ./files/intermediate/summaries0 \
@@ -12,8 +12,8 @@ nohup python -u main.py \
 
 nohup python -u main.py \
     --gpuId 1 \
-    --conv1KWidth 3 \
-    --conv1SWidth 3 \
+    --conv1KWidth 7 \
+    --conv1SWidth 2 \
     --num4OutputChannels 8 \
     --path4SaveModel ./files/intermediate/trainedModel1 \
     --path4Summaries ./files/intermediate/summaries1 \
