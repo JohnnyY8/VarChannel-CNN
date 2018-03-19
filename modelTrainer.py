@@ -83,16 +83,28 @@ class ModelTrainer:
       oldTrainAccu, newTrainAccu, bestValAccu = 0.0, 0.0, 0.0
       flag, num4Epoches = 0, 0
 
+      path4TrainWriter = "train_convK" + str(self.FLAGS.conv1KWidth) + \
+          "_convS" + str(self.FLAGS.conv1SWidth) + \
+          "_numOC" + str(self.FLAGS.num4OutputChannels) + \
+          "_numFFC" + str(self.FLAGS.num4FirstFC) + \
+          "_numSFC" + str(self.FLAGS.num4SecondFC) + \
+          "_nWeight" + str(self.FLAGS.nWeight)
       self.trainWriter = tf.summary.FileWriter(
           os.path.join(
               self.FLAGS.path4Summaries,
-              "train"),
+              path4TrainWriter),
           sess.graph)
 
+      path4TestWriter = "test_convK" + str(self.FLAGS.conv1KWidth) + \
+          "_convS" + str(self.FLAGS.conv1SWidth) + \
+          "_numOC" + str(self.FLAGS.num4OutputChannels) + \
+          "_numFFC" + str(self.FLAGS.num4FirstFC) + \
+          "_numSFC" + str(self.FLAGS.num4SecondFC) + \
+          "_nWeight" + str(self.FLAGS.nWeight)
       self.testWriter = tf.summary.FileWriter(
           os.path.join(
               self.FLAGS.path4Summaries,
-              "test"))
+              path4TestWriter))
 
       saver = tf.train.Saver()
       sess.run(self.insModel.init)

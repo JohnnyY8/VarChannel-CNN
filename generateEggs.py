@@ -83,8 +83,6 @@ class GenerateEggs():
           probRes = probTemp
         else:
           probRes = np.append(probRes, probTemp, axis = 0)
-      print "self.insDataPro.allUnlabeledData:", self.insDataPro.allUnlabeledData.shape
-      print "probRes.shape:", probRes.shape
 
     self.insDataPro.loadEnsembleUnlabeledNamePairTwoCol()
     with open(os.path.join(self.FLAGS.path4SaveEggsFile, "eggsfile.txt"), 'w') as filePointer:
