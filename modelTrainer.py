@@ -111,7 +111,8 @@ class ModelTrainer:
               self.xTrain.shape[0] * 1.0 / self.FLAGS.batchSize) + \
                   ind / self.FLAGS.batchSize
 
-          if ind4Summary % 100 == 99:  # Record execution states
+          if ind4Summary % 100 == 99:
+            # Record training execution states
             run_options = tf.RunOptions(trace_level=tf.RunOptions.FULL_TRACE)
             run_metadata = tf.RunMetadata()
             newTrainLoss, newTrainAccu, summary, tempTS = sess.run(
@@ -132,7 +133,18 @@ class ModelTrainer:
             print("Adding run metadat for", ind4Summary)
             self.trainWriter.add_summary(summary, ind4Summary)
 
-          else:  # Record a summary
+            # Recode a test summary
+            #summary, newValAccu = sess.run(
+            #    [self.insModel.merged,
+            #     self.insModel.accuracy],
+            #     feed_dict = {
+            #         self.insModel.xData: self.xTest,
+            #         self.insModel.yLabel: self.yTest,
+            #         self.insModel.keepProb: 1.0})
+            #self.testWriter.add_summary(summary, num4Epoches)
+
+          else:
+            # Record a training summary
             newTrainLoss, newTrainAccu, summary, tempTS = sess.run(
                 [self.insModel.loss,
                  self.insModel.accuracy,
@@ -149,6 +161,16 @@ class ModelTrainer:
             print("  The loss is %.6f. The training accuracy is %.6f." % \
                 (newTrainLoss, newTrainAccu))
 
+            # Recode a test summary
+            #summary, newValAccu = sess.run(
+            #    [self.insModel.merged,
+            #     self.insModel.accuracy],
+            #     feed_dict = {
+            #         self.insModel.xData: self.xTest,
+            #         self.insModel.yLabel: self.yTest,
+            #         self.insModel.keepProb: 1.0})
+            #self.testWriter.add_summary(summary, num4Epoches)
+
           if flag == 0:
               flag = 1
           else:
@@ -157,7 +179,7 @@ class ModelTrainer:
               flag = 2
           oldTrainAccu = newTrainAccu
 
-        summary, newValAccu = sess.run(  # TODO: summary needs to be checked
+        summary, newValAccu = sess.run(
             [self.insModel.merged,
              self.insModel.accuracy],
              feed_dict = {
