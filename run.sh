@@ -39,3 +39,5 @@ nohup python -u main.py \
     --path4Summaries ./files/intermediate/summaries \
     --path4SaveEggsFile ./files/intermediate/eggFiles3 \
     1>./files/intermediate/info3.txt 2>&1 &
+
+git commit -a -m "Modify some hyper-parameters."
