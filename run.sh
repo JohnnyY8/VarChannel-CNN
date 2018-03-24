@@ -4,7 +4,7 @@ nohup python -u main.py \
     --gpuId 0 \
     --conv1KWidth 4 \
     --conv1SWidth 20 \
-    --num4OutputChannels 10 \
+    --num4OutputChannels 14 \
     --path4SaveModel ./files/intermediate/trainedModel0 \
     --path4Summaries ./files/intermediate/summaries \
     --path4SaveEggsFile ./files/intermediate/eggFiles0 \
@@ -14,7 +14,7 @@ nohup python -u main.py \
     --gpuId 1 \
     --conv1KWidth 4 \
     --conv1SWidth 20 \
-    --num4OutputChannels 11 \
+    --num4OutputChannels 15 \
     --path4SaveModel ./files/intermediate/trainedModel1 \
     --path4Summaries ./files/intermediate/summaries \
     --path4SaveEggsFile ./files/intermediate/eggFiles1 \
@@ -24,7 +24,7 @@ nohup python -u main.py \
     --gpuId 2 \
     --conv1KWidth 4 \
     --conv1SWidth 20 \
-    --num4OutputChannels 12 \
+    --num4OutputChannels 16 \
     --path4SaveModel ./files/intermediate/trainedModel2 \
     --path4Summaries ./files/intermediate/summaries \
     --path4SaveEggsFile ./files/intermediate/eggFiles2 \
@@ -34,7 +34,7 @@ nohup python -u main.py \
     --gpuId 3 \
     --conv1KWidth 4 \
     --conv1SWidth 20 \
-    --num4OutputChannels 13 \
+    --num4OutputChannels 17 \
     --path4SaveModel ./files/intermediate/trainedModel3 \
     --path4Summaries ./files/intermediate/summaries \
     --path4SaveEggsFile ./files/intermediate/eggFiles3 \
