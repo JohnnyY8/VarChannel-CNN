@@ -3,13 +3,13 @@ import os
 import numpy as np
 
 class ResultStorer:
- 
+
   def __init__(self, FLAGS):
     self.FLAGS = FLAGS
     self.loss = np.array([])
     self.trainAccu = np.array([])
     self.valAccu = np.array([])
-  
+
   # Add loss
   def addLoss(self, loss):
     self.loss = np.append(self.loss, loss)

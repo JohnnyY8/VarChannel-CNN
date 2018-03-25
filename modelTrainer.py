@@ -145,16 +145,6 @@ class ModelTrainer:
             print("Adding run metadat for", ind4Summary)
             self.trainWriter.add_summary(summary, ind4Summary)
 
-            # Recode a test summary
-            #summary, newValAccu = sess.run(
-            #    [self.insModel.merged,
-            #     self.insModel.accuracy],
-            #     feed_dict = {
-            #         self.insModel.xData: self.xTest,
-            #         self.insModel.yLabel: self.yTest,
-            #         self.insModel.keepProb: 1.0})
-            #self.testWriter.add_summary(summary, num4Epoches)
-
           else:
             # Record a training summary
             newTrainLoss, newTrainAccu, summary, tempTS = sess.run(
@@ -172,16 +162,6 @@ class ModelTrainer:
             self.insResultStorer.addTrainAccu(newTrainAccu)
             print("  The loss is %.6f. The training accuracy is %.6f." % \
                 (newTrainLoss, newTrainAccu))
-
-            # Recode a test summary
-            #summary, newValAccu = sess.run(
-            #    [self.insModel.merged,
-            #     self.insModel.accuracy],
-            #     feed_dict = {
-            #         self.insModel.xData: self.xTest,
-            #         self.insModel.yLabel: self.yTest,
-            #         self.insModel.keepProb: 1.0})
-            #self.testWriter.add_summary(summary, num4Epoches)
 
           if flag == 0:
               flag = 1
