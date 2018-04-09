@@ -41,4 +41,3 @@ nohup python -u main.py \
     1>./files/intermediate/info3.txt 2>&1 &
 
 git commit -a -m "Modify some hyper-parameters."
-#have a try
