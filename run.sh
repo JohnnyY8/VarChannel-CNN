@@ -7,7 +7,7 @@ nohup python -u main.py \
     --num4OutputChannels 2 \
     --num4FirstFC 200 \
     --num4SecondFC 10 \
-    --nWeight 17 \
+    --nWeight 21 \
     --path4SaveModel ./files/intermediate/trainedModel0 \
     --path4Summaries ./files/intermediate/summaries \
     --path4SaveEggsFile ./files/intermediate/eggFiles0 \
@@ -20,7 +20,7 @@ nohup python -u main.py \
     --num4OutputChannels 2 \
     --num4FirstFC 200 \
     --num4SecondFC 10 \
-    --nWeight 18 \
+    --nWeight 22 \
     --path4SaveModel ./files/intermediate/trainedModel1 \
     --path4Summaries ./files/intermediate/summaries \
     --path4SaveEggsFile ./files/intermediate/eggFiles1 \
@@ -33,7 +33,7 @@ nohup python -u main.py \
     --num4OutputChannels 2 \
     --num4FirstFC 200 \
     --num4SecondFC 10 \
-    --nWeight 19 \
+    --nWeight 23 \
     --path4SaveModel ./files/intermediate/trainedModel2 \
     --path4Summaries ./files/intermediate/summaries \
     --path4SaveEggsFile ./files/intermediate/eggFiles2 \
@@ -46,7 +46,7 @@ nohup python -u main.py \
     --num4OutputChannels 2 \
     --num4FirstFC 200 \
     --num4SecondFC 10 \
-    --nWeight 20 \
+    --nWeight 24 \
     --path4SaveModel ./files/intermediate/trainedModel3 \
     --path4Summaries ./files/intermediate/summaries \
     --path4SaveEggsFile ./files/intermediate/eggFiles3 \
