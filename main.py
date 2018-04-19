@@ -104,12 +104,12 @@ flags.DEFINE_integer(
 
 flags.DEFINE_integer(
     "conv1KWidth",
-    10,
+    4,
     "The width of convolutional kernel.")
 
 flags.DEFINE_integer(
     "conv1SWidth",
-    1,
+    20,
     "The width of convolutional kernel stride.")
 
 flags.DEFINE_integer(
@@ -134,7 +134,7 @@ flags.DEFINE_integer(
 
 flags.DEFINE_integer(
     "num4OutputChannels",
-    10,
+    2,
     "The number of output channels in first convolutional layer.")
 
 FLAGS = flags.FLAGS
