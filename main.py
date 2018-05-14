@@ -104,7 +104,7 @@ flags.DEFINE_integer(
 
 flags.DEFINE_integer(
     "conv1KWidth",
-    4,
+    1,
     "The width of convolutional kernel.")
 
 flags.DEFINE_integer(
