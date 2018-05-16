@@ -189,7 +189,7 @@ class BaseCNNModel(CommonModelFunc):
           tf.constant([[1.], [0.]]))
 
       predPro4PandNwithLabel = tf.reshape(
-          tf.reduce_sum(
+          tf.reduce_mean(
               self.yLabel * self.hOutput,
               reduction_indices = [0]),
           [-1, 2])
