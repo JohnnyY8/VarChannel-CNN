@@ -33,3 +33,7 @@ class ResultStorer:
   # Save validation accuracy
   def saveValAccu(self):
     np.save(os.path.join(self.FLAGS.baseSavePath, "valAccu.npy"), self.valAccu)
+
+  # Save preActOutput value of validation set
+  def savePreActOutput(self, preActOutput):
+    np.save(os.path.join(self.FLAGS.path4SavePreActOutput, "preActOutput.npy"), preActOutput)

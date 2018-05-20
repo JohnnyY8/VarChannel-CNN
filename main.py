@@ -33,6 +33,11 @@ flags.DEFINE_string(
     "The path for saving model.")
 
 flags.DEFINE_string(
+    "path4SavePreActOutput",
+    "./files/preActOutput",
+    "The path for saving preActOutput value of validation set.")
+
+flags.DEFINE_string(
     "path4Summaries",
     "./files/summaries",
     "The path for saving summaries.")
@@ -109,7 +114,7 @@ flags.DEFINE_integer(
 
 flags.DEFINE_integer(
     "conv1SWidth",
-    20,
+    1,
     "The width of convolutional kernel stride.")
 
 flags.DEFINE_integer(

@@ -171,8 +171,9 @@ class ModelTrainer:
               flag = 2
           oldTrainAccu = newTrainAccu
 
-        summary, newValAccu = sess.run(
+        summary, preActOutput, newValAccu = sess.run(
             [self.insModel.merged,
+             self.insModel.preActOutput,
              self.insModel.accuracy],
              feed_dict = {
                  self.insModel.xData: self.xTest,
@@ -184,6 +185,7 @@ class ModelTrainer:
 
         if newValAccu > bestValAccu:
           bestValAccu = newValAccu
+          self.insResultStorer.savePreActOutput(preActOutput)
           savePath = saver.save(
               sess,
               os.path.join(self.FLAGS.path4SaveModel, "model.ckpt"))

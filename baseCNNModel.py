@@ -168,9 +168,9 @@ class BaseCNNModel(CommonModelFunc):
 
       wOutput = self.init_weight_variable(name4Weight, [num4SecondFC, 2])
       bOutput = self.init_bias_variable(name4Bias, [2])
-      preActOutput = tf.add(tf.matmul(hFC2, wOutput), bOutput)
+      self.preActOutput = tf.add(tf.matmul(hFC2, wOutput), bOutput)
       #preActOutput = tf.add(tf.matmul(hFC2DropOut, wOutput), bOutput)
-      self.hOutput = tf.nn.softmax(preActOutput, name = name4Act)
+      self.hOutput = tf.nn.softmax(self.preActOutput, name = name4Act)
 
     # Cost function
     with tf.variable_scope("lossLayer"):
@@ -205,7 +205,7 @@ class BaseCNNModel(CommonModelFunc):
       self.loss = tf.subtract(
           tf.reduce_mean(
               tf.nn.softmax_cross_entropy_with_logits(
-                  logits = preActOutput,
+                  logits = self.preActOutput,
                   labels = self.yLabel)),
           self.FLAGS.nWeight * predPro4NwithLabel,
           name = "loss")
