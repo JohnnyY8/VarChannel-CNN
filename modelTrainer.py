@@ -185,6 +185,7 @@ class ModelTrainer:
 
         if newValAccu > bestValAccu:
           bestValAccu = newValAccu
+          self.insResultStorer.saveValidationSet(self.xTest)
           self.insResultStorer.savePreActOutput(preActOutput)
           savePath = saver.save(
               sess,

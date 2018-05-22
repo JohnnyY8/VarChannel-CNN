@@ -37,3 +37,7 @@ class ResultStorer:
   # Save preActOutput value of validation set
   def savePreActOutput(self, preActOutput):
     np.save(os.path.join(self.FLAGS.path4SavePreActOutput, "preActOutput.npy"), preActOutput)
+
+  # Save current validation set
+  def saveValidationSet(self, validationSet):
+    np.save(os.path.join(self.FLAGS.path4SavePreActOutput, "validationSet.npy"), validationSet)
