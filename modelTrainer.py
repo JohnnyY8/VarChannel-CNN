@@ -186,7 +186,9 @@ class ModelTrainer:
         if newValAccu > bestValAccu:
           bestValAccu = newValAccu
           self.insResultStorer.saveValidationSet(self.xTest)
+          self.insResultStorer.saveValidationLabel(self.yTest)
           self.insResultStorer.savePreActOutput(preActOutput)
+          self.insResultSotrer.saveScore(self.insModel.hOutput)
           savePath = saver.save(
               sess,
               os.path.join(self.FLAGS.path4SaveModel, "model.ckpt"))

@@ -33,9 +33,9 @@ flags.DEFINE_string(
     "The path for saving model.")
 
 flags.DEFINE_string(
-    "path4SavePreActOutput",
-    "./files/preActOutput",
-    "The path for saving preActOutput value of validation set.")
+    "path4SaveFinalValue",
+    "./files/finalValue",
+    "The path for saving final value of validation set.")
 
 flags.DEFINE_string(
     "path4Summaries",
