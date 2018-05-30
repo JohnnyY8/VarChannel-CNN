@@ -21,6 +21,7 @@ class ModelTrainer:
   # Training and validation for DNN
   def trainDNN(self):
     self.xTrain, self.xTest, self.yTrain, self.yTest = self.insDataSpliter.splitData2TrainAndVal()
+
     with tf.Session() as sess:
       oldTrainAccu, newTrainAccu, bestValAccu = 0.0, 0.0, 0.0
       flag = num4Epoches = 0
@@ -78,6 +79,11 @@ class ModelTrainer:
   def trainCNN(self):
     self.xTrain, self.xTest, self.yTrain, self.yTest = \
         self.insDataSpliter.splitData2TrainAndVal()
+
+    self.insResultStorer.saveTrainSet(self.xTrain)
+    self.insResultStorer.saveTrainLabel(self.yTrain)
+    self.insResultStorer.saveValidationSet(self.xTest)
+    self.insResultStorer.saveValidationLabel(self.yTest)
 
     with tf.Session() as sess:
       oldTrainAccu, newTrainAccu, bestValAccu = 0.0, 0.0, 0.0
@@ -171,9 +177,10 @@ class ModelTrainer:
               flag = 2
           oldTrainAccu = newTrainAccu
 
-        summary, preActOutput, newValAccu = sess.run(
+        summary, preActOutput, hOutput, newValAccu = sess.run(
             [self.insModel.merged,
              self.insModel.preActOutput,
+             self.insModel.hOutput,
              self.insModel.accuracy],
              feed_dict = {
                  self.insModel.xData: self.xTest,
@@ -185,10 +192,8 @@ class ModelTrainer:
 
         if newValAccu > bestValAccu:
           bestValAccu = newValAccu
-          self.insResultStorer.saveValidationSet(self.xTest)
-          self.insResultStorer.saveValidationLabel(self.yTest)
           self.insResultStorer.savePreActOutput(preActOutput)
-          self.insResultSotrer.saveScore(self.insModel.hOutput)
+          self.insResultStorer.saveScore(hOutput)
           savePath = saver.save(
               sess,
               os.path.join(self.FLAGS.path4SaveModel, "model.ckpt"))
