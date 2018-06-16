@@ -22,6 +22,9 @@ class ModelTrainer:
   def trainDNN(self):
     self.xTrain, self.xTest, self.yTrain, self.yTest = self.insDataSpliter.splitData2TrainAndVal()
 
+    # Set values of xTest and yTefrom YJ
+    #self.xTest, self.yTest = 
+
     with tf.Session() as sess:
       oldTrainAccu, newTrainAccu, bestValAccu = 0.0, 0.0, 0.0
       flag = num4Epoches = 0
@@ -36,7 +39,6 @@ class ModelTrainer:
           batchXs, batchYs = self.xTrain[trainIndex[ind: ind + self.FLAGS.batchSize]], \
               self.yTrain[trainIndex[ind: ind + self.FLAGS.batchSize]]
 
-          #print "The shape of batchXs and batchYs:", batchXs.shape, batchYs.shape
           newTrainLoss, newTrainAccu, tempTS = sess.run(
               [self.insModel.loss,
                self.insModel.accuracy,
