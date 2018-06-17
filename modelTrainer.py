@@ -22,9 +22,6 @@ class ModelTrainer:
   def trainDNN(self):
     self.xTrain, self.xTest, self.yTrain, self.yTest = self.insDataSpliter.splitData2TrainAndVal()
 
-    # Set values of xTest and yTefrom YJ
-    self.xTest, self.yTest = np.load("./files/ablation/X_test.npy"), np.load("./files/ablation/Y_test.npy")
-
     with tf.Session() as sess:
       oldTrainAccu, newTrainAccu, bestValAccu = 0.0, 0.0, 0.0
       flag = num4Epoches = 0
@@ -81,6 +78,9 @@ class ModelTrainer:
   def trainCNN(self):
     self.xTrain, self.xTest, self.yTrain, self.yTest = \
         self.insDataSpliter.splitData2TrainAndVal()
+
+    # Set values of xTest and yTefrom YJ
+    self.xTest, self.yTest = np.load("./files/ablation/X_test.npy"), np.load("./files/ablation/Y_test.npy")
 
     self.insResultStorer.saveTrainSet(self.xTrain)
     self.insResultStorer.saveTrainLabel(self.yTrain)
