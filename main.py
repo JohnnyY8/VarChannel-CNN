@@ -79,7 +79,7 @@ flags.DEFINE_float(
 
 flags.DEFINE_float(
     "learningRate",
-    0.0001,
+    0.000001,
     "The learning rate for training.")
 
 flags.DEFINE_float(

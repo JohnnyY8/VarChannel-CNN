@@ -79,7 +79,7 @@ class ModelTrainer:
     self.xTrain, self.xTest, self.yTrain, self.yTest = \
         self.insDataSpliter.splitData2TrainAndVal()
 
-    # Set values of xTest and yTefrom YJ
+    # Set values of xTest and yT from YJ
     self.xTest, self.yTest = np.load("./files/ablation/X_test.npy"), np.load("./files/ablation/Y_test.npy")
 
     self.insResultStorer.saveTrainSet(self.xTrain)
