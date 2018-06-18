@@ -183,10 +183,10 @@ class DataPro:
 
   # Load ensemble data and label
   def loadEnsembleDataAndLabel(self):
-    #self.positiveData = np.load(os.path.join(self.ensembleDataPath, "positiveDataAppendZeros.npy"))
-    #self.negativeData = np.load(os.path.join(self.ensembleDataPath, "negativeDataAppendZeros.npy"))
-    self.negativeData = np.load(os.path.join(self.ensembleDataPath, "allNegativeData.npy"))
-    self.positiveData = np.load(os.path.join(self.ensembleDataPath, "allPositiveData.npy"))
+    self.positiveData = np.load(os.path.join(self.ensembleDataPath, "positiveDataAppendZeros.npy"))
+    self.negativeData = np.load(os.path.join(self.ensembleDataPath, "negativeDataAppendZeros.npy"))
+    #self.negativeData = np.load(os.path.join(self.ensembleDataPath, "allNegativeData.npy"))
+    #self.positiveData = np.load(os.path.join(self.ensembleDataPath, "allPositiveData.npy"))
     self.allTrainData = np.vstack((self.positiveData, self.negativeData))
     self.buildEnsembleLabel()
     self.allUnlabeledData = np.load(os.path.join(self.ensembleDataPath, "unlabeledDataAppendZeros.npy"))
