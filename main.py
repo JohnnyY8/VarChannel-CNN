@@ -38,6 +38,11 @@ flags.DEFINE_string(
     "The path for saving final value of validation set.")
 
 flags.DEFINE_string(
+    "accuSavePath",
+    "./files/accuAndLoss",
+    "The path for npy files of training and valdation accuracy and loss value.")
+
+flags.DEFINE_string(
     "path4Summaries",
     "./files/summaries",
     "The path for saving summaries.")

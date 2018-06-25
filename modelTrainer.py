@@ -79,10 +79,6 @@ class ModelTrainer:
     self.xTrain, self.xTest, self.yTrain, self.yTest = \
         self.insDataSpliter.splitData2TrainAndVal()
 
-    # Set values of xTest and yT from YJ
-    #self.xTrain, self.yTrain = np.load("./files/ablation/X_train.npy"), np.load("./files/ablation/Y_train.npy")
-    #self.xTest, self.yTest = np.load("./files/ablation/X_test.npy"), np.load("./files/ablation/Y_test.npy")
-
     self.insResultStorer.saveTrainSet(self.xTrain)
     self.insResultStorer.saveTrainLabel(self.yTrain)
     self.insResultStorer.saveValidationSet(self.xTest)
@@ -206,6 +202,10 @@ class ModelTrainer:
           print("The model saved in file:", savePath)
           break
         num4Epoches += 1
+
+    self.insResultStorer.saveTrainAccu()
+    self.insResultStorer.saveValAccu()
+    self.insResultStorer.saveLoss()
 
     self.trainWriter.flush()
     self.testWriter.flush()

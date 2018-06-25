@@ -16,7 +16,7 @@ class ResultStorer:
 
   # Save loss
   def saveLoss(self):
-    np.save(os.path.join(self.FLAGS.baseSavePath, "loss.npy"), self.loss)
+    np.save(os.path.join(self.FLAGS.accuSavePath, "loss.npy"), self.loss)
 
   # Add train accuracy
   def addTrainAccu(self, trainAccu):
@@ -24,7 +24,7 @@ class ResultStorer:
 
   # Save train accuracy
   def saveTrainAccu(self):
-    np.save(os.path,join(self.FLAGS.baseSavePath, "trainAccu.npy"), self.trainAccu)
+    np.save(os.path.join(self.FLAGS.accuSavePath, "trainAccu.npy"), self.trainAccu)
 
   # Add validation accuracy
   def addValAccu(self, valAccu):
@@ -32,7 +32,7 @@ class ResultStorer:
 
   # Save validation accuracy
   def saveValAccu(self):
-    np.save(os.path.join(self.FLAGS.baseSavePath, "valAccu.npy"), self.valAccu)
+    np.save(os.path.join(self.FLAGS.accuSavePath, "valAccu.npy"), self.valAccu)
 
   # Save current train set
   def saveTrainSet(self, trainSet):
