@@ -145,31 +145,30 @@ class BaseCNNModel(CommonModelFunc):
           [num4SecondFC])
       self.variable_summaries(bFC2)
 
-      preActFC2 = tf.add(
+      self.preActFC2 = tf.add(
           tf.matmul(
               hFC1,
               wFC2),
           bFC2,
           name = name4PreAct)
-      self.variable_summaries(preActFC2)
+      self.variable_summaries(self.preActFC2)
 
-      hFC2 = tf.nn.relu(
-          preActFC2,
+      self.hFC2 = tf.nn.relu(
+          self.preActFC2,
           name = name4Act)
-      self.variable_summaries(hFC2)
+      self.variable_summaries(self.hFC2)
 
-      hFC2DropOut = tf.nn.dropout(
-          hFC2,
-          self.keepProb)
-      self.variable_summaries(hFC2DropOut)
+#      self.hFC2DropOut = tf.nn.dropout(
+#          hFC2,
+#          self.keepProb)
+#      self.variable_summaries(hFC2DropOut)
 
     with tf.variable_scope("outputLayer"):
       name4Weight, name4Bias, name4Act = "wOutput", "bOutput", "hOutput"
 
       wOutput = self.init_weight_variable(name4Weight, [num4SecondFC, 2])
       bOutput = self.init_bias_variable(name4Bias, [2])
-      self.preActOutput = tf.add(tf.matmul(hFC2, wOutput), bOutput)
-      #preActOutput = tf.add(tf.matmul(hFC2DropOut, wOutput), bOutput)
+      self.preActOutput = tf.add(tf.matmul(self.hFC2, wOutput), bOutput)
       self.hOutput = tf.nn.softmax(self.preActOutput, name = name4Act)
 
     # Cost function

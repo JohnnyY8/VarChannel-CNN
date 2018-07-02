@@ -176,8 +176,10 @@ class ModelTrainer:
               flag = 2
           oldTrainAccu = newTrainAccu
 
-        summary, preActOutput, hOutput, newValAccu = sess.run(
+        summary, preActFC2, hFC2, preActOutput, hOutput, newValAccu = sess.run(
             [self.insModel.merged,
+             self.insModel.preActFC2,
+             self.insModel.hFC2,
              self.insModel.preActOutput,
              self.insModel.hOutput,
              self.insModel.accuracy],
@@ -191,8 +193,10 @@ class ModelTrainer:
 
         if newValAccu > bestValAccu:
           bestValAccu = newValAccu
-          self.insResultStorer.savePreActOutput(preActOutput)
-          self.insResultStorer.saveScore(hOutput)
+          self.insResultStorer.saveValue(preActFC2, "preActFC2.npy")
+          self.insResultStorer.saveValue(hFC2, "hFC2.npy")
+          self.insResultStorer.saveValue(preActOutput, "preActOutput.npy")
+          self.insResultStorer.saveValue(hOutput, "score.npy")
           savePath = saver.save(
               sess,
               os.path.join(self.FLAGS.path4SaveModel, "model.ckpt"))

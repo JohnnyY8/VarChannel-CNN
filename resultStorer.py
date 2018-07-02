@@ -50,10 +50,7 @@ class ResultStorer:
   def saveValidationLabel(self, validationLabel):
     np.save(os.path.join(self.FLAGS.path4SaveFinalValue, "validationLabel.npy"), validationLabel)
 
-  # Save preActOutput value of validation set
-  def savePreActOutput(self, preActOutput):
-    np.save(os.path.join(self.FLAGS.path4SaveFinalValue, "preActOutput.npy"), preActOutput)
+  # Save preActivation and activation value of validation set
+  def saveValue(self, preActOutput, fileName):
+    np.save(os.path.join(self.FLAGS.path4SaveFinalValue, fileName), preActOutput)
 
-  # Save validation score
-  def saveScore(self, score):
-    np.save(os.path.join(self.FLAGS.path4SaveFinalValue, "score.npy"), score)
