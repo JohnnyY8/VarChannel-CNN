@@ -1,2 +1,2 @@
-# varIC-CNN
+# VC-CNN
 The codes
